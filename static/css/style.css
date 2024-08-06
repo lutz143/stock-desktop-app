@@ -1,0 +1,95 @@
+:root {
+    --charcoal-black: rgb(34,34,34);
+    --dark-gray: rgba(77, 77, 77, 50);
+    --light-gray: rgba(217, 217, 217, 50);
+    --dark-blue: rgba(0, 48, 108);
+    --light-blue: rgba(12, 120, 194);
+    --light-yellow: rgba(255, 242, 204);
+}
+
+/* ===================== START OF LANDING PAGE ===================== */
+
+header {
+    font-family: 'Orbitron', Arial, sans-serif;
+    background-color: var(--dark-blue);
+    color: white;
+    padding: 8px;
+    text-align: center;
+}
+
+.landing-body {
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    background-color: var(--charcoal-black);
+    min-height: 100vh;
+}
+
+.nav-links {
+    font-family: 'Orbitron', Arial, sans-serif;
+    font-size: 38px;
+    font-weight: 500;
+    color: white;
+    margin-bottom: auto;
+    margin: 0 90px 5px 0;
+}
+
+.nav-links a {
+    position: relative;
+    color: white;
+    padding: 10px 10px 15px 10px;
+    text-decoration: none;
+    background-image: linear-gradient(200deg, var(--dark-gray) 0%, var(--dark-blue) 100%);
+    background-repeat: no-repeat;
+    background-size: 100% 0.25em;
+    background-position: bottom;
+    transition: all 0.25s ease-in;
+}
+
+.nav-links a:hover {
+    background-size: 100% 100%;
+    padding: 10px 102px 15px 20px;
+    border-radius: 8px;
+}
+
+/* ===================== START OF TICKER SCROLLING ===================== */
+
+.ticker-container {
+    width: 100%;
+    overflow: hidden;
+    background-color: #333;
+    color: #fff;
+    white-space: nowrap;
+    box-sizing: border-box;
+    display: flex;
+}
+
+#ticker-header {
+    background-color: var(--light-blue);
+    border-radius: 0 8px 4px 0;
+    display: flex;
+    padding: 10px 10px 10px 15px;
+    height: 100%;
+    width: 640px;
+    z-index: 100;
+}
+
+.ticker-content {
+    display: inline-block;
+    white-space: nowrap;
+    padding: 10px 0;
+}
+
+.ticker-item {
+    display: inline-block;
+    padding: 0 20px;
+}
+
+/* Ticker scroll handling */
+@keyframes scroll {
+    0% {
+        transform: translate(25%);
+    }
+    100% {
+        transform: translate(-100%);
+    }
+}

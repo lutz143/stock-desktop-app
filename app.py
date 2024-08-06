@@ -31,6 +31,23 @@ def get_db_connection():
 def index():
     return render_template('index.html')
 
+@app.route('/metaData')
+def send_meta_form():
+    connection = get_db_connection()
+    cursor = connection.cursor(dictionary=True)
+    # query the server
+    cursor.execute("SELECT * FROM MetaData")
+    rows = cursor.fetchall()
+    print(rows)
+
+    # close the connection to the database
+    cursor.close()
+    connection.close()
+
+    return render_template('meta.html', data=rows)
+
+
+
 @app.route('/todayStocksData', methods=['GET'])
 def get_today_stocks():
     connection = get_db_connection()
@@ -52,7 +69,6 @@ def get_stocks():
       FROM TodayStockForecast
       GROUP BY Ticker, previousClose, MarketValuePerShare, NominalValuePerShare, profitMargins, beta, dividendRate, exDividendDate, TargetPriceUpside, IRR
     """)
-
 
     results = cursor.fetchall()
     cursor.close()

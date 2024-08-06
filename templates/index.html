@@ -9,10 +9,10 @@
   <!-- GOOGLE FONT LINKS BELOW -->
 
   <!-- CSS SOURCE BELOW -->
-
+    <link rel="stylesheet" href="../static/css/style.css" />
 </head>
 
-<body>
+<body class="landing-body">
   <header>
     <h1>Stock Database</h1>
   </header>
@@ -20,11 +20,18 @@
     <div id="ticker-header"></div>
     <div class="ticker-content">
       <!-- ticker dynamically added here -->
-    </div>  
-    
-  
-
+    </div>
   </div>
+
+  <div class="nav-container">
+    <div class="nav-links">
+        <a href="/metaData" target="_blank">
+            Today's Stocks
+        </a>
+    </div>
+  </div>
+
   <script src="../static/js/utils.js"></script>
+  <script src="../static/js/tickerScroll.js"></script>
 </body>
 </html>

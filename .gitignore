@@ -3,6 +3,9 @@
 # dependencies
 /node_modules
 /form-converter
+.__pycache__
+/__pycache__/
+__pycache__/app.cpython-39.pyc
 .env
 
 /.pnp
