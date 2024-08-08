@@ -31,6 +31,10 @@ def get_db_connection():
 def index():
     return render_template('index.html')
 
+@app.route('/sub-page')
+def subPage():
+    return render_template('sub-page.html')
+
 @app.route('/metaData')
 def send_meta_form():
     connection = get_db_connection()
@@ -76,6 +80,31 @@ def get_stocks():
 
     return jsonify(results)
 
+# get all metadata
+@app.route('/metadata', methods=['Get'])
+def metadataAll():
+    # establish connnection to database
+    connection = get_db_connection()
+    cursor = connection.cursor()
+
+    # query the database
+    cursor.execute(f"""
+        SELECT *
+        FROM MetaData
+        ORDER BY Ticker, Pull_Date
+    """)
+
+    rows = cursor.fetchall()
+    columns = [desc[0] for desc in cursor.description]
+
+    # convert rows to list of dictionaries
+    data = [dict(zip(columns, row)) for row in rows]
+
+    # close the connection to the database
+    cursor.close()
+    connection.close()
+
+    return jsonify(data)
 
 if __name__ == '__main__':
     app.run(debug=True)

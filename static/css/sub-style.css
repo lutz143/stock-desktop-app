@@ -1,0 +1,142 @@
+:root {
+    --charcoal-black: rgb(34,34,34);
+    --dark-gray: rgba(77, 77, 77, 50);
+    --light-gray: rgba(217, 217, 217, 50);
+    --dark-blue: rgba(0, 48, 108);
+    --light-blue: rgba(12, 120, 194);
+    --light-yellow: rgba(255, 242, 204);
+    --excel-green: rgb(33,115,70);
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* background-color: var(--light-gray); */
+    background-color: green;
+    color: white;
+    font-family: "Arial", sans-serif;
+}
+
+header {
+    width: 100%;
+    padding: 20px;
+    background-color: var(--charcoal-black);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+#header-title {
+    margin-left: 20px;
+    padding: 0;
+    font-size: 40px;
+    text-align: start;
+}
+
+#header-content {
+    align-content: end;
+}
+
+.row {
+    flex-wrap: nowrap;
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: nowrap;
+    transform: translateY(100px);
+    opacity: 0;
+    animation: slideUp 1s ease-out forwards;
+}
+
+@keyframes slideUp {
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.header-button {
+    width: 200px;
+    padding: 15px 30px;
+    font-size: 16px;
+    border: none;
+    border-radius: 25px;
+    background: linear-gradient(200deg, var(--dark-gray) 0%, var(--dark-blue) 100%);
+    color: white;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.header-button:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 18px var(--gray);
+}
+
+.header-button.active {
+    box-shadow: 0 8px 18px var(--gray);
+}
+
+button.dt-button {
+    background-color: var(--light-blue);
+    color: white;
+    border-radius: 15%;
+}
+
+button.header-button:hover {
+    background-color: var(--excel-green);
+}
+
+.content {
+    margin-top: 20px;
+    width: 100%;
+    max-width: 95%;
+    padding: 20px;
+    background: var(--dark-blue);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    display: none;
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: auto;
+}
+
+td {
+    color: black;
+}
+
+.content.active {
+    display: block;
+}
+
+.dataTables_wrapper .dataTables_filter input {
+    background-color: var(--light-gray) !important;
+}
+
+.dt-buttons {
+    float: inline-end !important;
+    margin-left: 20px;
+}
+
+label {
+    color: white;
+}
+
+select {
+    background-color: var(--light-gray) !important;
+}
+
+.dataTables_wrapper .dataTables_paginate a {
+    color: white !important;
+}
+
+.ellipsis {
+    color: white !important;
+}
+
