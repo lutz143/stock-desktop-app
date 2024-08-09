@@ -140,3 +140,10 @@ select {
     color: white !important;
 }
 
+/* Add this CSS to your stylesheet */
+.nowrap {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 300px; /* Set a maximum width for the column to control text overflow */
+}

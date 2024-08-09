@@ -28,8 +28,6 @@
                     <button class="header-button" onclick="showContent('content1')">MetaData</button>
                     <button class="header-button" onclick="showContent('content2')">KPI</button>
                     <button class="header-button" onclick="showContent('content3')">NL Growth</button>
-                    <button class="header-button" onclick="showContent('content4')">iDAD</button>
-                    <button class="header-button" onclick="showContent('content5')">Scorecard</button>
                     <a class="header-button" href="./ice-curve" target="_blank" id="project-non-button">ICE Curve</a>
                 </div>
             </div>
@@ -38,24 +36,18 @@
     <div id="content1" class="content">
         <div class="row">
             <h2 class="col-sm-4">
-                Award/Performance Fee History
+                Stock MetaData
             </h2>
         </div>
         <table id="meta-table" class="display">
             <thead>
                 <tr>
-                    <th>Source</th>
-                    <th>Fee Type</th>
-                    <th>Line of Business</th>
-                    <th>Program</th>
-                    <th>fk_guid</th>
-                    <th>PoP Start</th>
-                    <th>PoP End</th>
-                    <th>Event/Milestone Description</th>
-                    <th>Available</th>
-                    <th>Earned Percent</th>
-                    <th>Earned Dollar</th>
-                    <th>ICEVOL Drive Path</th>
+                    <th>Ticker</th>
+                    <th>Website</th>
+                    <th>Number of Employees</th>
+                    <th>Business Summary</th>
+                    <th>Industry</th>
+                    <th>Sector</th>
                 </tr>
             </thead>
             <tbody>
@@ -103,7 +95,7 @@
     <script>
 
         $(document).ready(function() {
-            var tableIds = ['#meta-table', '#project-table'];
+            var tableIds = ['#meta-table', '#project-kpi'];
 
             tableIds.forEach(function(tableId) {
                 $(tableId).DataTable({
@@ -115,6 +107,12 @@
                             text: 'CSV',
                             filename: 'Export_' + tableId.replace('#', ''),
                             title: 'Export to CSV'
+                        }
+                    ],
+                    "columnDefs": [
+                        {
+                            targets: -3, // Adjust the index based on your column order; if longBusinessSummary is the 4th column, use 3
+                            className: 'nowrap'
                         }
                     ]
                 });
@@ -130,6 +128,8 @@
 
             if (contentId == 'content1') {
                 fetchMetaData();
+            } else if (contentId = 'content2') {
+                console.log('idk')
             }
         }
     </script>

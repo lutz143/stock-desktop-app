@@ -3,7 +3,8 @@ function fetchMetaData() {
         url: 'metadata',
         method: 'GET',
         success: function(data) {
-            const table = $('meta-table').DataTable();
+            var table = $('#meta-table').DataTable();
+            console.log(data);
             table.clear();
             data.forEach(function(row) {
                 table.row.add([
