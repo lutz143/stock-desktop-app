@@ -40,7 +40,7 @@ def send_meta_form():
     connection = get_db_connection()
     cursor = connection.cursor(dictionary=True)
     # query the server
-    cursor.execute("SELECT * FROM MetaData")
+    cursor.execute("SELECT * FROM MetaData ORDER BY Ticker")
     rows = cursor.fetchall()
     print(rows)
 
@@ -92,6 +92,34 @@ def metadataAll():
         SELECT *
         FROM MetaData
         ORDER BY Ticker, Pull_Date
+    """)
+
+    rows = cursor.fetchall()
+    columns = [desc[0] for desc in cursor.description]
+
+    # convert rows to list of dictionaries
+    data = [dict(zip(columns, row)) for row in rows]
+
+    # close the connection to the database
+    cursor.close()
+    connection.close()
+
+    return jsonify(data)
+
+
+# get all forecasted stocks (including archived)
+@app.route('/forecast-all', methods=['Get'])
+def forecastAll():
+    # establish connnection to database
+    connection = get_db_connection()
+    cursor = connection.cursor()
+
+    # query the database
+    cursor.execute(f"""
+        SELECT Ticker, previousClose, MarketValuePerShare, NominalValuePerShare, profitMargins, TargetPriceUpside, IRR
+        FROM ArchiveStockForecast
+        GROUP BY Ticker, previousClose, MarketValuePerShare, NominalValuePerShare, profitMargins, TargetPriceUpside, IRR
+        ORDER BY TargetPriceUpside
     """)
 
     rows = cursor.fetchall()

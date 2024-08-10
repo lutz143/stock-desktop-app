@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="https://www.lockheedmartin.com/favicon.ico" />
-    <title>ICE Resources</title>
+    <title>Stock Resources</title>
     <!-- BOOTSTRAP LINK BELOW -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.2.2/css/buttons.dataTables.min.css">
@@ -26,9 +26,9 @@
             <div class="col-sm-8" id="header-content">
                 <div class="button-container">
                     <button class="header-button" onclick="showContent('content1')">MetaData</button>
-                    <button class="header-button" onclick="showContent('content2')">KPI</button>
-                    <button class="header-button" onclick="showContent('content3')">NL Growth</button>
-                    <a class="header-button" href="./ice-curve" target="_blank" id="project-non-button">ICE Curve</a>
+                    <button class="header-button" onclick="showContent('content2')">Forecasts</button>
+                    <button class="header-button" onclick="showContent('content3')">Placeholder</button>
+                    <a class="header-button" href="./bell-curve" target="_blank" id="project-non-button">Bell Cuve</a>
                 </div>
             </div>
         </div>
@@ -48,6 +48,14 @@
                     <th>Business Summary</th>
                     <th>Industry</th>
                     <th>Sector</th>
+                    <th title="
+PEG Ratio < 1: This suggests that the stock may be undervalued relative to its earnings growth. A low PEG ratio can indicate that the stock is a good investment opportunity.
+PEG Ratio = 1: This suggests that the stock is fairly valued.
+PEG Ratio > 1: This indicates that the stock may be overvalued relative to its earnings growth.">PEG Ratio</th>
+                    <th>Beta</th>
+                    <th>Dividend (Annual)</th>
+                    <th>Trailing Div Rate</th>
+                    <th>Ex Div Date</th>
                 </tr>
             </thead>
             <tbody>
@@ -58,24 +66,19 @@
     <div id="content2" class="content">
         <div class="row">
             <h2 class="col-sm-4">
-                Placeholder
+                All Stock Forecasts
             </h2>
         </div>
-        <table id="project-table" class="display">
+        <table id="forecast-table" class="display">
             <thead>
                 <tr>
-                    <th>Source</th>
-                    <th>Fee Type</th>
-                    <th>Line of Business</th>
-                    <th>Program</th>
-                    <th>fk_guid</th>
-                    <th>PoP Start</th>
-                    <th>PoP End</th>
-                    <th>Event/Milestone Description</th>
-                    <th>Available</th>
-                    <th>Earned Percent</th>
-                    <th>Earned Dollar</th>
-                    <th>ICEVOL Drive Path</th>
+                    <th>Ticker</th>
+                    <th>Previous Close</th>
+                    <th>Market Value PS</th>
+                    <th>Nominal PS</th>
+                    <th>Profit Margin</th>
+                    <th>Target Price Upside</th>
+                    <th>IRR</th>
                 </tr>
             </thead>
             <tbody>
@@ -95,7 +98,7 @@
     <script>
 
         $(document).ready(function() {
-            var tableIds = ['#meta-table', '#project-kpi'];
+            var tableIds = ['#meta-table', '#forecast-table'];
 
             tableIds.forEach(function(tableId) {
                 $(tableId).DataTable({
@@ -111,7 +114,7 @@
                     ],
                     "columnDefs": [
                         {
-                            targets: -3, // Adjust the index based on your column order; if longBusinessSummary is the 4th column, use 3
+                            targets: 3, // Adjust the index based on your column order; if longBusinessSummary is the 4th column, use 3
                             className: 'nowrap'
                         }
                     ]
@@ -129,7 +132,7 @@
             if (contentId == 'content1') {
                 fetchMetaData();
             } else if (contentId = 'content2') {
-                console.log('idk')
+                fetchAllForecastData();
             }
         }
     </script>
