@@ -11,7 +11,7 @@ ul {
 }
 
 li input {
-    width: 65%;
+    max-width: 50%;
 }
 
 /* ===================== START OF BUTTON STYLING ===================== */
@@ -83,7 +83,7 @@ li input {
 
 /* ===================== START OF MISC STYLING ===================== */
 
-#meta-program {
+#meta-stock {
     border: none;
 }
 
@@ -98,7 +98,7 @@ li input {
 }
 
 #meta-detail div {
-    width: 145px;
+    width: 200px;
     display: inline-flex;
 }
 
@@ -107,6 +107,16 @@ li input {
 }
 
 /* ===================== START OF IMAGE/MODAL STYLING ===================== */
+
+#image-container {
+    display: flex;
+    flex-direction: row;
+}
+
+#ticker-image {
+    cursor: pointer;
+}
+
 /* modal background */
 .modal {
     display: none;
@@ -147,3 +157,4 @@ li input {
     text-decoration: none;
     cursor: pointer;
 }
+

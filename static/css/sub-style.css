@@ -148,13 +148,25 @@ select {
 }
 
 #meta-table_paginate a { 
-    color: white;
+    color: white !important;
 }
 
 #meta-table_info {
-    color: white;
+    color: white !important;
 }
 
 #meta-table_paginate a.current {
-    color: white;
+    color: black !important;
+}
+
+#forecast-table_paginate a { 
+    color: white !important;
+}
+
+#forecast-table_info {
+    color: white !important;
+}
+
+#forecast-table_paginate a.current {
+    color: black !important;
 }

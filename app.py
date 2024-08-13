@@ -41,14 +41,16 @@ def send_meta_form():
     cursor = connection.cursor(dictionary=True)
     # query the server
     cursor.execute("SELECT * FROM MetaData ORDER BY Ticker")
-    rows = cursor.fetchall()
-    print(rows)
+    metadata = cursor.fetchall()
+
+    cursor.execute("SELECT * FROM ArchiveStockForecast")
+    forecast_data = cursor.fetchall()
 
     # close the connection to the database
     cursor.close()
     connection.close()
 
-    return render_template('meta.html', data=rows)
+    return render_template('meta.html', metadata=metadata, forecast_data=forecast_data)
 
 
 
