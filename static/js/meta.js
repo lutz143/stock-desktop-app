@@ -4,8 +4,8 @@ const websiteId = document.getElementById("website");
 const industryId = document.getElementById("industry");
 const sectorId = document.getElementById("sector");
 const busSummaryId = document.getElementById("business-summary");
-const forecastId = document.getElementById("forecast-nom");
-const forecastId2 = document.getElementById("forecast-upside");
+const costGridId = document.getElementById("cost-grid");
+const percentGridId = document.getElementById("percent-grid");
 
 
 const tickers = [...new Set(metaData.map(item => item.Ticker))]; // set duplicate tickers to unique values only
@@ -44,12 +44,26 @@ function updateguid() {
     if (forecastGuids.length > 0) {
         // Target the first record
         const forecast = forecastGuids[0];
+        let forecastId = forecast.id;
+        let costDataKeys = ['NominalValuePerShare', 'MarketValuePerShare', 'previousClose', 'beta']
+        let percentDataKeys = ['TargetPriceUpside', 'IRR']
 
         // Render the values to the page
         if (forecast.id) {
-            console.log(forecast.NominalValuePerShare);
-            forecastId.value = forecast.NominalValuePerShare;
-            forecastId2.value = forecast.TargetPriceUpside;
+            costDataKeys.forEach(key => {
+                const rowDiv = document.createElement('div');
+                rowDiv.classList.add('row', 'mb-2');
+
+                const colLabelDiv = document.createElement('div');
+                colLabelDiv.innerHTML = `
+                <div class="row">
+                    <div class="col">${key}: </div>
+                    <div class="col">${forecast[key]}</div>
+                </div>
+                `
+                rowDiv.appendChild(colLabelDiv);
+                costGridId.appendChild(rowDiv)
+            })
         }
     }
 }
