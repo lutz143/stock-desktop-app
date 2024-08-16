@@ -26,6 +26,8 @@ function updateguid() {
     const forecastGuids = forecastData.filter(forecast => forecast.Ticker === selectedTicker);
 
     websiteId.innerHTML = '';
+    costGridId.innerHTML = '';
+    percentGridId.innerHTML = '';
 
     guids.forEach(item => {
         guid = item.id;
@@ -58,11 +60,25 @@ function updateguid() {
                 colLabelDiv.innerHTML = `
                 <div class="row">
                     <div class="col">${key}: </div>
-                    <div class="col">${forecast[key]}</div>
+                    <div class="col">${formatDecimalNumber(forecast[key], 2)}</div>
                 </div>
                 `
                 rowDiv.appendChild(colLabelDiv);
                 costGridId.appendChild(rowDiv)
+            })
+            percentDataKeys.forEach(key => {
+                const rowDiv = document.createElement('div');
+                rowDiv.classList.add('row', 'mb-2');
+
+                const colLabelDiv = document.createElement('div');
+                colLabelDiv.innerHTML = `
+                <div class="row">
+                    <div class="col">${key}: </div>
+                    <div class="col">${formatPercent(forecast[key], 1)}</div>
+                </div>
+                `
+                rowDiv.appendChild(colLabelDiv);
+                percentGridId.appendChild(rowDiv)
             })
         }
     }

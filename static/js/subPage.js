@@ -16,7 +16,7 @@ function fetchMetaData() {
                     row.sector,
                     row.pegRatio,
                     formatDecimalNumber(row.beta, 2),
-                    formatDecimalNumber(row.dividendRate, 2),
+                    `$${formatDecimalNumber(row.dividendRate, 2)}`,
                     formatDecimalNumber(row.trailingAnnualDividendRate, 2),
                     row.exDividendDate
                 ]).draw();

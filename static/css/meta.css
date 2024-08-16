@@ -1,5 +1,9 @@
 @import url(./style.css);
 
+body {
+    background-color: var(--light-gray);
+}
+
 textarea {
     min-height: 25vh;
     font-size: 14px;
