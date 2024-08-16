@@ -118,9 +118,9 @@ def forecastAll():
 
     # query the database
     cursor.execute(f"""
-        SELECT Ticker, previousClose, MarketValuePerShare, NominalValuePerShare, profitMargins, TargetPriceUpside, IRR
+        SELECT Ticker, previousClose, MarketValuePerShare, NominalValuePerShare, profitMargins, TargetPriceUpside, IRR, targetMeanPrice
         FROM ArchiveStockForecast
-        GROUP BY Ticker, previousClose, MarketValuePerShare, NominalValuePerShare, profitMargins, TargetPriceUpside, IRR
+        GROUP BY Ticker, previousClose, MarketValuePerShare, NominalValuePerShare, profitMargins, TargetPriceUpside, IRR, targetMeanPrice
         ORDER BY TargetPriceUpside
     """)
 

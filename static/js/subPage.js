@@ -18,7 +18,8 @@ function fetchMetaData() {
                     formatDecimalNumber(row.beta, 2),
                     `$${formatDecimalNumber(row.dividendRate, 2)}`,
                     formatDecimalNumber(row.trailingAnnualDividendRate, 2),
-                    row.exDividendDate
+                    row.exDividendDate,
+                    row.targetMeanPrice
                 ]).draw();
             });
         }
@@ -42,6 +43,7 @@ function fetchAllForecastData() {
                     formatPercent(row.profitMargins),
                     formatPercent(row.TargetPriceUpside),
                     formatPercent(row.IRR),
+                    row.targetMeanPrice
                 ]).draw();
             });
         }
