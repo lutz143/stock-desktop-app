@@ -118,6 +118,36 @@ def forecastAll():
 
     # query the database
     cursor.execute(f"""
+        SELECT Ticker, previousClose, MarketValuePerShare, NominalValuePerShare, targetMeanPrice, profitMargins, returnOnAssets, returnOnEquity, TargetPriceUpside, IRR, COGS_Perct_Revenue_Avg, Oper_Exp_Perct_Revenue_Avg, CAPEX_Rate, AR_Days_Avg, Inventory_Days_Avg, AP_Days_Avg, freeCashflow
+                   
+        FROM ArchiveStockForecast
+                   
+        GROUP BY Ticker, previousClose, MarketValuePerShare, NominalValuePerShare, targetMeanPrice, profitMargins, returnOnAssets, returnOnEquity, TargetPriceUpside, IRR, COGS_Perct_Revenue_Avg, Oper_Exp_Perct_Revenue_Avg, CAPEX_Rate, AR_Days_Avg, Inventory_Days_Avg, AP_Days_Avg, freeCashflow
+                   
+        ORDER BY TargetPriceUpside
+    """)
+
+    rows = cursor.fetchall()
+    columns = [desc[0] for desc in cursor.description]
+
+    # convert rows to list of dictionaries
+    data = [dict(zip(columns, row)) for row in rows]
+
+    # close the connection to the database
+    cursor.close()
+    connection.close()
+
+    return jsonify(data)
+
+# get all forecasted stock details (including archived)
+# @app.route('/forecast-all-details', methods=['Get'])
+# def forecastAll():
+    # establish connnection to database
+    connection = get_db_connection()
+    cursor = connection.cursor()
+
+    # query the database
+    cursor.execute(f"""
         SELECT Ticker, previousClose, MarketValuePerShare, NominalValuePerShare, profitMargins, TargetPriceUpside, IRR, targetMeanPrice
         FROM ArchiveStockForecast
         GROUP BY Ticker, previousClose, MarketValuePerShare, NominalValuePerShare, profitMargins, TargetPriceUpside, IRR, targetMeanPrice

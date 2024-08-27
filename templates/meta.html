@@ -73,7 +73,9 @@
                     </div>
                 </div>
             </div>
+
             <div class="col-md-4 four-cards">
+
                 <div class="card mb-3">
                     <div class="card-body">
                         <div style="display: flex; flex-direction: row; justify-content: space-between;">
@@ -93,7 +95,53 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <div style="display: flex; flex-direction: row; justify-content: space-between;">
+                            <h3>Forecast Summary</h3>
+                        </div>
+                        <!-- Start of the DataTable render -->
+                        <div id="content2" class="content">
+                            <table id="forecast-table" class="display">
+                                <thead>
+                                    <tr>
+                                        <th>TotalRevenue</th>
+                                        <th>Previous Close</th>
+                                        <th>Market Value PS</th>
+                                        <th>Nominal PS</th>
+                                        <th>Profit Margin</th>
+                                        <th>Target Price Upside</th>
+                                        <th>IRR</th>
+                                        <th>Target Price Mean</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- End of the DataTable -->
+                    </div>
+                </div>
+
             </div>
+
+            
+
+            <div class="col-md-4 four-cards">
+                <div class="card mb-3" id="bell-curve" style="display: none;">
+                    <div class="card-body">
+                        <h3 class="card-title">
+                            Stock Curve
+                            <span><a href="./ice-curve" target="_blank" style="text-decoration: none;">&#129482;</a></span>
+                        </h3>
+                        <canvas id="bellCurveChart" width="800" height="400"></canvas>
+                        <!-- Bell Curve being loaded from bellCurve.js -->
+                    </div>
+                </div>
+            </div>
+
+
         </div>
     </div>
     
@@ -104,5 +152,6 @@
     console.log(forecastData);
 </script>
 <script src="../static/js/utils.js"></script>
+<script src="../static/js/bellCurve.js"></script>
 <script src="../static/js/meta.js"></script>
 </html>

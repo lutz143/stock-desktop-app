@@ -85,5 +85,6 @@ function updateguid() {
 }
 
 ticker.addEventListener("change", updateguid);
+ticker.addEventListener("change", calcConfidence);
 
 updateguid();

@@ -40,6 +40,39 @@ function fetchAllForecastData() {
                     formatDecimalNumber(row.previousClose, 2),
                     formatDecimalNumber(row.MarketValuePerShare, 2),
                     formatDecimalNumber(row.NominalValuePerShare, 2),
+                    row.targetMeanPrice,
+                    formatPercent(row.TargetPriceUpside),
+                    formatPercent(row.IRR),
+                    formatPercent(row.profitMargins),
+                    formatPercent(row.returnOnAssets),
+                    formatPercent(row.returnOnEquity),
+                    formatPercent(row.COGS_Perct_Revenue_Avg),
+                    formatPercent(row.Oper_Exp_Perct_Revenue_Avg),
+                    formatPercent(row.CAPEX_Rate),
+                    formatDecimalNumber(row.AR_Days_Avg, 1),
+                    formatDecimalNumber(row.Inventory_Days_Avg, 1),
+                    formatDecimalNumber(row.AP_Days_Avg, 1),
+                    formatDecimalNumber(row.freeCashflow, 0),
+                ]).draw();
+            });
+        }
+    });
+}
+
+function fetchAllForecastDetails() {
+    $.ajax({
+        url: 'forecast-all',
+        method: 'GET',
+        success: function(data) {
+            var table = $('#forecast-table').DataTable();
+            console.log(data);
+            table.clear();
+            data.forEach(function(row) {
+                table.row.add([
+                    row.Ticker,
+                    formatDecimalNumber(row.previousClose, 2),
+                    formatDecimalNumber(row.MarketValuePerShare, 2),
+                    formatDecimalNumber(row.NominalValuePerShare, 2),
                     formatPercent(row.profitMargins),
                     formatPercent(row.TargetPriceUpside),
                     formatPercent(row.IRR),
