@@ -85,3 +85,94 @@ function manipulateArray(nominalCurve, stepDollarPerPoint, stDev, conservativeCu
     chartGenerator ();
 }
 
+// ====================== START OF CHART GENERATION AND RENDERING TO PAGE ======================
+let bellCurveChart; // global variable to store the chart instance
+
+function chartGenerator() {
+    // Extracting ranges and distributions
+    const ranges = Object.values(dict).map(arr => arr[0]);
+    const distribution = Object.values(dict).map(arr => arr[1]);
+
+    // Create a canvas element
+    const ctx = document.getElementById('bellCurveChart').getContext('2d');
+
+    // Check if a chart instance already exists and destroy it
+    if (bellCurveChart) {
+        bellCurveChart.destroy();
+    }
+
+    // Initialize Chart.js
+    bellCurveChart = new Chart(ctx, {
+        data: {
+            datasets: [
+                {
+                    type: 'scatter',
+                    label: 'NOM',
+                    backgroundColor: 'rgb(45,155,45)',
+                    borderColor: 'rgb(34,34,34)',
+                    pointRadius: 5,
+                    data: [{
+                        x: nominalCurve,
+                        y: nomNormalValue
+                    }]
+                },
+                {
+                    type: 'scatter',
+                    label: 'CON',
+                    backgroundColor: 'rgb(242,142,43)',
+                    borderColor: 'rgb(34,34,34)',
+                    pointRadius: 5,
+                    data: [{
+                        x: conservativeCurve,
+                        y: conNormalValue
+                    }]
+                },
+                {
+                    type: 'scatter',
+                    label: 'Target',
+                    backgroundColor: 'rgb(12,120,194)',
+                    borderColor: 'rgb(0,48,108)',
+                    pointRadius: 5,
+                    data: [{
+                        x: currentPriceCurve,
+                        y: stockPriceNormalValue
+                    }]
+                },
+                {
+                    type: 'line', // use scatter plot for render of bell curve
+                    label: 'Bell Curve',
+                    data: ranges.map((range, index) => ({ x: range, y: distribution[index] })),
+                    showLine: true,
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    backgroundColor: 'rgba(75, 192, 192, 0.2',
+                    pointRadius: 0
+                }
+            ]
+        },
+        options: {
+            legend: {
+                position: 'bottom'
+            },
+            scales: {
+                xAxes: [{
+                    type: 'linear',
+                    position: 'bottom',
+                    scaleLabel: {
+                        display: true,
+                        labelString: '$Cost'
+                    }
+                }],
+                yAxes: [{
+                    type: 'linear',
+                    position: 'left',
+                    ticks: {
+                        callback: function(value) {
+                            value = value * 100
+                            return value.toFixed(1) + '%'; // converts the y-axis values to percentages
+                        }
+                    }
+                }]
+            }
+        }
+    })
+}
