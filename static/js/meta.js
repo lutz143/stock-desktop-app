@@ -56,12 +56,13 @@ function updateguid() {
                     <td>${formatWholeNumber(item.TotalRevenue)}</td>
                     <td>${formatPercent(item.Revenue_Growth)}</td>
                     <td>${formatWholeNumber(item.CostOfRevenue)}</td>
-                    <td>${formatWholeNumber(item.OperatingExpense)}</td>
-                    <td>${formatWholeNumber(item.ebitda)}</td>
+                    <td>${formatWholeNumber(item.OperatingExpense)}</td>                    
                     <td>${formatWholeNumber(item.EBIT)}</td>
+                    <td>${formatWholeNumber(item.ReconciledDepreciation)}</td>
+                    <td>${formatWholeNumber(item.Less_Cash_Taxes)}</td>
+                    <td>${formatWholeNumber(item.Less_CAPEX)}</td>
+                    <td>${formatWholeNumber(item.ChangeInNetWorkingCapital)}</td>
                     <td>${formatWholeNumber(item.UnleveredFCF)}</td>
-                    <td>${formatWholeNumber(item.totalCash)}</td>
-                    <td>${formatWholeNumber(item.totalDebt)}</td>
             `;
 
             incomeForecastGrid.appendChild(trDiv);

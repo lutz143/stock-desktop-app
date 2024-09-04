@@ -54,7 +54,7 @@ def send_meta_form():
 
     # query the server for all stock forecast data (including archived data)
     cursor.execute(f"""
-        SELECT id, Ticker, asOfYear, TotalRevenue, Revenue_Growth, CostOfRevenue, OperatingExpense, ebitda, EBIT, UnleveredFCF, totalCash, totalDebt 
+        SELECT id, asOfYear, TotalRevenue, Revenue_Growth, CostOfRevenue, OperatingExpense, EBIT, ReconciledDepreciation, Less_Cash_Taxes, Less_CAPEX, ChangeInNetWorkingCapital, UnleveredFCF
         FROM ArchiveStockForecast
         ORDER BY id, asOfYear
     """)

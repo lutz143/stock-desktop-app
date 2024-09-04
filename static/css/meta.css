@@ -20,6 +20,12 @@ li input {
 
 /* ===================== START OF BUTTON STYLING ===================== */
 
+.header-buttons {
+    position: absolute;
+    top: 18px;
+    right: 38px;
+}
+
 #saveButton {
     display: none;
 }
