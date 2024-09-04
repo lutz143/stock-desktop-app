@@ -6,6 +6,7 @@ const sectorId = document.getElementById("sector");
 const busSummaryId = document.getElementById("business-summary");
 const costGridId = document.getElementById("cost-grid");
 const percentGridId = document.getElementById("percent-grid");
+const incomeForecastGrid = document.getElementById("income-forecast-grid");
 
 
 const tickers = [...new Set(metaData.map(item => item.Ticker))]; // set duplicate tickers to unique values only
@@ -28,6 +29,7 @@ function updateguid() {
     websiteId.innerHTML = '';
     costGridId.innerHTML = '';
     percentGridId.innerHTML = '';
+    incomeForecastGrid.innerHTML = '';
 
     guids.forEach(item => {
         guid = item.id;
@@ -42,17 +44,57 @@ function updateguid() {
         }
     })
 
+    financialForecastData.forEach((item, index) => {
+        let incomeGuid = item.id;
+
+        if (incomeGuid === guid) {
+            const trDiv = document.createElement('tr');
+
+            trDiv.innerHTML = `
+                <tr>
+                    <td>${item.asOfYear}</td>
+                    <td>${formatWholeNumber(item.TotalRevenue)}</td>
+                    <td>${formatPercent(item.Revenue_Growth)}</td>
+                    <td>${formatWholeNumber(item.CostOfRevenue)}</td>
+                    <td>${formatWholeNumber(item.OperatingExpense)}</td>
+                    <td>${formatWholeNumber(item.ebitda)}</td>
+                    <td>${formatWholeNumber(item.EBIT)}</td>
+                    <td>${formatWholeNumber(item.UnleveredFCF)}</td>
+                    <td>${formatWholeNumber(item.totalCash)}</td>
+                    <td>${formatWholeNumber(item.totalDebt)}</td>
+            `;
+
+            incomeForecastGrid.appendChild(trDiv);
+        }
+    })
+
     // Check if there are any matching records
     if (forecastGuids.length > 0) {
         // Target the first record
         const forecast = forecastGuids[0];
         let forecastId = forecast.id;
-        let costDataKeys = ['NominalValuePerShare', 'MarketValuePerShare', 'previousClose', 'beta']
-        let percentDataKeys = ['TargetPriceUpside', 'IRR']
+        // let costDataKeys = ['NominalValuePerShare', 'MarketValuePerShare', 'previousClose', 'beta']
+        let costDataKeys = ['NOM', 'Mkt', 'Prev Close']
+        let numbDataKeys = ['beta']
+        let percentDataKeys = ['NOM Upside', 'IRR']
 
         // Render the values to the page
         if (forecast.id) {
             costDataKeys.forEach(key => {
+                const rowDiv = document.createElement('div');
+                rowDiv.classList.add('row', 'mb-2');
+
+                const colLabelDiv = document.createElement('div');
+                colLabelDiv.innerHTML = `
+                <div class="row">
+                    <div class="col">${key}: </div>
+                    <div class="col">$${formatDecimalNumber(forecast[key], 2)}</div>
+                </div>
+                `
+                rowDiv.appendChild(colLabelDiv);
+                costGridId.appendChild(rowDiv)
+            })
+            numbDataKeys.forEach(key => {
                 const rowDiv = document.createElement('div');
                 rowDiv.classList.add('row', 'mb-2');
 

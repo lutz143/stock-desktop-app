@@ -39,18 +39,32 @@ def subPage():
 def send_meta_form():
     connection = get_db_connection()
     cursor = connection.cursor(dictionary=True)
-    # query the server
+    # query the server for metadata
     cursor.execute("SELECT * FROM MetaData ORDER BY Ticker")
     metadata = cursor.fetchall()
 
-    cursor.execute("SELECT * FROM ArchiveStockForecast")
+    # query the server for all stock forecast data (including archived data)
+    cursor.execute(f"""
+        SELECT id, Ticker, previousClose as `Prev Close`, MarketValuePerShare as Mkt, NominalValuePerShare as NOM, profitMargins, beta, dividendRate, exDividendDate, TargetPriceUpside as `NOM Upside`, IRR
+        FROM ArchiveStockForecast
+        GROUP BY id, Ticker, `Prev Close`, Mkt, NOM, profitMargins, beta, dividendRate, exDividendDate, `NOM Upside`, IRR
+    """)
     forecast_data = cursor.fetchall()
+
+
+    # query the server for all stock forecast data (including archived data)
+    cursor.execute(f"""
+        SELECT id, Ticker, asOfYear, TotalRevenue, Revenue_Growth, CostOfRevenue, OperatingExpense, ebitda, EBIT, UnleveredFCF, totalCash, totalDebt 
+        FROM ArchiveStockForecast
+        ORDER BY id, asOfYear
+    """)
+    financial_forecast_data = cursor.fetchall()
 
     # close the connection to the database
     cursor.close()
     connection.close()
 
-    return render_template('meta.html', metadata=metadata, forecast_data=forecast_data)
+    return render_template('meta.html', metadata=metadata, forecast_data=forecast_data, financial_forecast_data=financial_forecast_data)
 
 
 

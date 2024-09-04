@@ -101,26 +101,30 @@
                 <div class="card mb-3">
                     <div class="card-body">
                         <div style="display: flex; flex-direction: row; justify-content: space-between;">
-                            <h3>Forecast Summary</h3>
+                            <h3>Income Forecast Summary</h3>
                         </div>
                         <!-- Start of the DataTable render -->
-                        <div id="content2" class="content">
-                            <table id="forecast-table" class="display">
-                                <thead>
-                                    <tr>
-                                        <th>TotalRevenue</th>
-                                        <th>Previous Close</th>
-                                        <th>Market Value PS</th>
-                                        <th>Nominal PS</th>
-                                        <th>Profit Margin</th>
-                                        <th>Target Price Upside</th>
-                                        <th>IRR</th>
-                                        <th>Target Price Mean</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                </tbody>
-                            </table>
+                        <div class="container">
+                            <div class="table-responsive">
+                                <table class="table table-striped" id="forecast-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Year</th>
+                                            <th>Revenue</th>
+                                            <th>Revenue Growth</th>
+                                            <th>COGS</th>
+                                            <th>Oper Exp</th>
+                                            <th>EBITDA</th>
+                                            <th>EBIT</th>
+                                            <th>Unlevered FCF</th>
+                                            <th>Cash</th>
+                                            <th>Debt</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="income-forecast-grid">
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                         <!-- End of the DataTable -->
                     </div>
@@ -151,7 +155,8 @@
 <script>
     const metaData = {{ metadata | tojson }};
     const forecastData = {{ forecast_data | tojson }};
-    console.log(forecastData);
+    const financialForecastData = {{ financial_forecast_data | tojson }};
+    console.log(financialForecastData);
 </script>
 <script src=https://cdnjs.cloudflare.com/ajax/libs/jstat/1.9.5/jstat.min.js integrity="sha512-MGT8BGoc8L3124PwHEGTC+M8Hu9oIbZOg8ENcd92sQKKidWKOOOZ6bqQemqYAX0yXJUnovOkF4Hx9gc/5lVxPw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="../static/js/utils.js"></script>
