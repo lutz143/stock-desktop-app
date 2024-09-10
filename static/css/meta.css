@@ -20,7 +20,13 @@ li input {
 
 /* ===================== START OF BUTTON STYLING ===================== */
 
-.header-buttons {
+.left-header-buttons {
+    position: absolute;
+    top: 18px;
+    left: 38px;
+}
+
+.right-header-buttons {
     position: absolute;
     top: 18px;
     right: 38px;
