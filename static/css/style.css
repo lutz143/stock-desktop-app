@@ -6,6 +6,7 @@
     --light-blue: rgba(12, 120, 194);
     --light-yellow: rgba(255, 242, 204);
     --excel-green: rgb(33,115,70);
+    --white: rgb(233, 229, 219);
 }
 
 /* ===================== START OF LANDING PAGE ===================== */
@@ -70,7 +71,7 @@ header {
     display: flex;
     padding: 10px 10px 10px 15px;
     height: 100%;
-    width: 640px;
+    width: 150%;
     z-index: 100;
 }
 
@@ -83,6 +84,12 @@ header {
 .ticker-item {
     display: inline-block;
     padding: 0 20px;
+}
+
+.submitFeedback {
+    position: absolute;
+    right: 5%;
+    top: 2%;
 }
 
 /* Ticker scroll handling */

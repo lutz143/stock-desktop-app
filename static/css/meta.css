@@ -97,6 +97,48 @@ li input {
     display: flex;
 }
 
+
+/* ===================== START OF FOOTER STYLING ===================== */
+
+footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    max-height: 6em;
+    min-height: 4.5em;
+    background-color: var(--dark-blue);
+    border-top: solid var(--white);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.footer-icon {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 8px;
+}
+
+.footer-icon a {
+    margin: 0 20px 0 20px;
+    margin-top: 2px;
+}
+
+footer p {
+    color: white;
+}
+
+#meta-footer {
+    max-height: max-content;
+}
+
+#footer-feedback {
+    top: 18px;
+    right: 38px;
+}
+
 /* ===================== START OF MISC STYLING ===================== */
 
 #meta-stock {
@@ -120,6 +162,31 @@ li input {
 
 #meta-detail li {
     margin-bottom: 4px;
+}
+
+.table-responsive {
+    max-height: 200px;
+    overflow: auto;
+}
+
+#forecast-header {
+    display: flex;
+    justify-content: start;
+    flex-shrink: 0;
+    margin-top: 8px;
+}
+
+#forecast-header h5 {
+    display: flex;
+    justify-content: center;
+    width: 90%;
+    text-align: center;
+    background-color: var(--light-gray);
+    color: black;
+    font-weight: 600;
+    font-size: 16px;
+    padding: 4px 0 4px 0;
+    flex-shrink: 0;
 }
 
 /* ===================== START OF IMAGE/MODAL STYLING ===================== */

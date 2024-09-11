@@ -13,8 +13,8 @@
     <link rel="stylesheet" href="../static/css/meta.css" />
     <title>Stock Profile</title>
 </head>
-<body>
-    <header>
+<body class="meta-body">
+    <header id="meta-header">
         <div class="left-header-buttons">
             <a class="btn btn-primary fa fa-home" type="button" href="/" title="Home" style="margin-right: 12px; font-size: 22px;"></a>
         </div>
@@ -88,8 +88,8 @@
                         <div class="card-subtitle mb-2 text-muted" style="margin-left: 2px;">
                             <div class="container">
                                 <div class="row">
-                                    <div class="col" id="forecast-header">Test</div>
-                                    <div class="col" id="forecast-header">Test2</div>
+                                    <div class="col" id="forecast-header"><h5>Cost Data</h5></div>
+                                    <div class="col" id="forecast-header"><h5>Return Data</h5></div>
                                 </div>
                                 <div class="row">
                                     <div class="col" id="cost-grid"></div>
@@ -152,9 +152,19 @@
 
 
         </div>
-    </div>
-    
+    </div>    
 </body>
+<footer id="meta-footer">
+    <div class="footer-icon">
+        <a href="/" target="_blank" rel="noopener no-referrer">
+            <img src="#" alt="Test">
+        </a>
+        <p>All Rights Reserved</p>
+    </div>
+    <div class="submitFeedback" id="footer-feedback">
+        <a class="btn btn-outline-secondary" target="_blank" href="/feedback">Submit Feedback</a>
+    </div>
+</footer>
 <script>
     const metaData = {{ metadata | tojson }};
     const forecastData = {{ forecast_data | tojson }};
