@@ -132,6 +132,31 @@
                         <!-- End of the DataTable -->
                     </div>
                 </div>
+                
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <div style="display: flex; flex-direction: row; justify-content: space-between;">
+                            <h3>Income Statement</h3>
+                        </div>
+                        <!-- Start of the DataTable render -->
+                        <div class="container">
+                            <div class="table-responsive">
+                                <table class="table table-striped" id="forecast-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Year</th>
+                                            <th>Revenue</th>
+                                            <th>COGS</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="income-statement-grid">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- End of the DataTable -->
+                    </div>
+                </div>
 
             </div>
 
@@ -169,7 +194,8 @@
     const metaData = {{ metadata | tojson }};
     const forecastData = {{ forecast_data | tojson }};
     const financialForecastData = {{ financial_forecast_data | tojson }};
-    console.log(financialForecastData);
+    const incomeData = {{ income_data | tojson }};
+    console.log(incomeData);
 </script>
 <script src=https://cdnjs.cloudflare.com/ajax/libs/jstat/1.9.5/jstat.min.js integrity="sha512-MGT8BGoc8L3124PwHEGTC+M8Hu9oIbZOg8ENcd92sQKKidWKOOOZ6bqQemqYAX0yXJUnovOkF4Hx9gc/5lVxPw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="../static/js/utils.js"></script>

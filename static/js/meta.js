@@ -7,6 +7,7 @@ const busSummaryId = document.getElementById("business-summary");
 const costGridId = document.getElementById("cost-grid");
 const percentGridId = document.getElementById("percent-grid");
 const incomeForecastGrid = document.getElementById("income-forecast-grid");
+const incomeStatementGrid = document.getElementById("income-statement-grid");
 
 
 const tickers = [...new Set(metaData.map(item => item.Ticker))]; // set duplicate tickers to unique values only
@@ -30,6 +31,7 @@ function updateguid() {
     costGridId.innerHTML = '';
     percentGridId.innerHTML = '';
     incomeForecastGrid.innerHTML = '';
+    incomeStatementGrid.innerHTML = '';
 
     guids.forEach(item => {
         guid = item.id;
@@ -66,6 +68,22 @@ function updateguid() {
             `;
 
             incomeForecastGrid.appendChild(trDiv);
+        }
+    })
+    incomeData.forEach((item, index) => {
+        let incomeGuid = item.id;
+
+        if (incomeGuid === guid) {
+            const trDiv = document.createElement('tr');
+
+            trDiv.innerHTML = `
+                <tr>
+                    <td>${item.asOfYear}</td>
+                    <td>${formatWholeNumber(item.TotalRevenue)}</td>
+                    <td>${formatWholeNumber(item.CostOfRevenue)}</td>
+            `;
+
+            incomeStatementGrid.appendChild(trDiv);
         }
     })
 
