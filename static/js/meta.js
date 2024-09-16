@@ -93,7 +93,7 @@ function updateguid() {
         const forecast = forecastGuids[0];
         let forecastId = forecast.id;
         // let costDataKeys = ['NominalValuePerShare', 'MarketValuePerShare', 'previousClose', 'beta']
-        let costDataKeys = ['NOM', 'Mkt', 'Prev Close']
+        let costDataKeys = ['NOM', 'Mkt', 'Prev Close', 'Dividend']
         let numbDataKeys = ['beta']
         let percentDataKeys = ['NOM Upside', 'IRR']
 

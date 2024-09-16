@@ -45,7 +45,7 @@ def send_meta_form():
 
     # query the server for all stock forecast data (including archived data)
     cursor.execute(f"""
-        SELECT id, Ticker, previousClose as `Prev Close`, MarketValuePerShare as Mkt, NominalValuePerShare as NOM, profitMargins, beta, dividendRate, exDividendDate, TargetPriceUpside as `NOM Upside`, IRR
+        SELECT id, Ticker, previousClose as `Prev Close`, MarketValuePerShare as Mkt, NominalValuePerShare as NOM, profitMargins, beta, dividendRate as Dividend, exDividendDate, TargetPriceUpside as `NOM Upside`, IRR
         FROM ArchiveStockForecast
         GROUP BY id, Ticker, `Prev Close`, Mkt, NOM, profitMargins, beta, dividendRate, exDividendDate, `NOM Upside`, IRR
     """)
