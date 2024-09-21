@@ -3,6 +3,7 @@ const employeesId = document.getElementById("employees");
 const websiteId = document.getElementById("website");
 const industryId = document.getElementById("industry");
 const sectorId = document.getElementById("sector");
+const peRatioId = document.getElementById("pe-ratio");
 const busSummaryId = document.getElementById("business-summary");
 const costGridId = document.getElementById("cost-grid");
 const percentGridId = document.getElementById("percent-grid");
@@ -42,6 +43,7 @@ function updateguid() {
             websiteId.innerHTML = `<a href=${item.website} target=_blank>${item.website}</a>`;
             industryId.value = item.industry;
             sectorId.value = item.sector;
+            peRatioId.value = formatDecimalNumber(item.trailingPE, 1);
             busSummaryId.value = item.longBusinessSummary;
         }
     })
@@ -65,6 +67,7 @@ function updateguid() {
                     <td>${formatWholeNumber(item.Less_CAPEX)}</td>
                     <td>${formatWholeNumber(item.ChangeInNetWorkingCapital)}</td>
                     <td>${formatWholeNumber(item.UnleveredFCF)}</td>
+                    <td>${formatPercent(item.EBIT / item.TotalRevenue)}</td>
             `;
 
             incomeForecastGrid.appendChild(trDiv);
@@ -81,6 +84,12 @@ function updateguid() {
                     <td>${item.asOfYear}</td>
                     <td>${formatWholeNumber(item.TotalRevenue)}</td>
                     <td>${formatWholeNumber(item.CostOfRevenue)}</td>
+                    <td>${formatWholeNumber(item.GrossProfit)}</td>
+                    <td>${formatWholeNumber(item.TotalExpenses)}</td>
+                    <td>${formatWholeNumber(item.EBIT)}</td>
+                    <td>${formatWholeNumber(item.NetIncome)}</td>
+                    <td>${formatDecimalNumber(item.BasicEPS, 2)}</td>
+                    <td>${formatPercent(item.NetIncome / item.TotalRevenue)}</td>
             `;
 
             incomeStatementGrid.appendChild(trDiv);
@@ -93,8 +102,9 @@ function updateguid() {
         const forecast = forecastGuids[0];
         let forecastId = forecast.id;
         // let costDataKeys = ['NominalValuePerShare', 'MarketValuePerShare', 'previousClose', 'beta']
-        let costDataKeys = ['NOM', 'Mkt', 'Prev Close', 'Dividend']
-        let numbDataKeys = ['beta']
+        let costDataKeys = ['NOM', 'Target Price', 'Mkt', 'Prev Close', 'beta']
+        let numbDataKeys = ['Dividend']
+        let dateDataKeys = ['Ex Div Date']
         let percentDataKeys = ['NOM Upside', 'IRR']
 
         // Render the values to the page
@@ -125,7 +135,21 @@ function updateguid() {
                 </div>
                 `
                 rowDiv.appendChild(colLabelDiv);
-                costGridId.appendChild(rowDiv)
+                percentGridId.appendChild(rowDiv)
+            })
+            dateDataKeys.forEach(key => {
+                const rowDiv = document.createElement('div');
+                rowDiv.classList.add('row', 'mb-2');
+
+                const colLabelDiv = document.createElement('div');
+                colLabelDiv.innerHTML = `
+                <div class="row">
+                    <div class="col">${key}: </div>
+                    <div class="col">${formatDate(forecast[key])}</div>
+                </div>
+                `
+                rowDiv.appendChild(colLabelDiv);
+                percentGridId.appendChild(rowDiv)
             })
             percentDataKeys.forEach(key => {
                 const rowDiv = document.createElement('div');

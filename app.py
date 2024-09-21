@@ -45,18 +45,18 @@ def send_meta_form():
 
     # query the server for all stock forecast data (including archived data)
     cursor.execute(f"""
-        SELECT id, Ticker, previousClose as `Prev Close`, MarketValuePerShare as Mkt, NominalValuePerShare as NOM, profitMargins, beta, dividendRate as Dividend, exDividendDate, TargetPriceUpside as `NOM Upside`, IRR
+        SELECT id, Ticker, previousClose as `Prev Close`, MarketValuePerShare as Mkt, NominalValuePerShare as NOM, profitMargins, beta, dividendRate as Dividend, exDividendDate, TargetPriceUpside as `NOM Upside`, IRR, targetMeanPrice as `Target Price`, exDividendDate as `Ex Div Date`
         FROM ArchiveStockForecast
-        GROUP BY id, Ticker, `Prev Close`, Mkt, NOM, profitMargins, beta, dividendRate, exDividendDate, `NOM Upside`, IRR
+        GROUP BY id, Ticker, `Prev Close`, Mkt, NOM, profitMargins, beta, dividendRate, exDividendDate, `NOM Upside`, IRR, `Target Price`, `Ex Div Date`
     """)
     forecast_data = cursor.fetchall()
 
     # query the server for all stock forecast data (including archived data)
     cursor.execute(f"""
-        SELECT id, Ticker, asOfYear, periodType, CostOfRevenue, TotalRevenue
+        SELECT id, Ticker, asOfYear, periodType, TotalRevenue, CostOfRevenue, GrossProfit, TotalExpenses, EBIT, BasicEPS, NetIncome
         FROM incomeStatement
         WHERE periodType <> 'TTM'
-        GROUP BY id, Ticker, asOfYear, periodType, CostOfRevenue, TotalRevenue
+        GROUP BY id, Ticker, asOfYear, periodType, TotalRevenue, CostOfRevenue, GrossProfit, TotalExpenses, EBIT, BasicEPS, NetIncome
     """)
     income_data = cursor.fetchall()
 
