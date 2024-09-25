@@ -64,8 +64,9 @@ li input {
 }
 
 .container-fluid {
-    min-height: 100vh;
+    height: max-content;
     margin: 30px 0;
+    margin-bottom: 95px;
     justify-content: center;
 }
 

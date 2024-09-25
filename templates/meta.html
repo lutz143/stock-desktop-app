@@ -51,7 +51,7 @@
                                 </li>
                                 <li>
                                     <div>Website:&nbsp;</div>
-                                    <div id="website"></div>
+                                    <div id="website" style="overflow: hidden;"></div>
                                 </li>
                                 <li>
                                     <div>Industry:&nbsp;</div>
@@ -170,6 +170,35 @@
                         <!-- End of the DataTable -->
                     </div>
                 </div>
+                
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <div style="display: flex; flex-direction: row; justify-content: space-between;">
+                            <h3>Balance Sheet</h3>
+                        </div>
+                        <!-- Start of the DataTable render -->
+                        <div class="container">
+                            <div class="table-responsive">
+                                <table class="table table-striped" id="forecast-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Year</th>
+                                            <th>Current Assets</th>
+                                            <th>Cash</th>
+                                            <th>AR</th>
+                                            <th>Inventory</th>
+                                            <th>PPE</th>
+                                            <th>Total Assets</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="balance-sheet-grid">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- End of the DataTable -->
+                    </div>
+                </div>
 
             </div>
 
@@ -208,7 +237,8 @@
     const forecastData = {{ forecast_data | tojson }};
     const financialForecastData = {{ financial_forecast_data | tojson }};
     const incomeData = {{ income_data | tojson }};
-    console.log(incomeData);
+    const bsData = {{ balance_sheet_data | tojson }};
+    console.log(bsData);
 </script>
 <script src=https://cdnjs.cloudflare.com/ajax/libs/jstat/1.9.5/jstat.min.js integrity="sha512-MGT8BGoc8L3124PwHEGTC+M8Hu9oIbZOg8ENcd92sQKKidWKOOOZ6bqQemqYAX0yXJUnovOkF4Hx9gc/5lVxPw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="../static/js/utils.js"></script>

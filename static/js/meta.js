@@ -9,6 +9,7 @@ const costGridId = document.getElementById("cost-grid");
 const percentGridId = document.getElementById("percent-grid");
 const incomeForecastGrid = document.getElementById("income-forecast-grid");
 const incomeStatementGrid = document.getElementById("income-statement-grid");
+const balanceSheetGrid = document.getElementById("balance-sheet-grid");
 
 
 const tickers = [...new Set(metaData.map(item => item.Ticker))]; // set duplicate tickers to unique values only
@@ -33,6 +34,7 @@ function updateguid() {
     percentGridId.innerHTML = '';
     incomeForecastGrid.innerHTML = '';
     incomeStatementGrid.innerHTML = '';
+    balanceSheetGrid.innerHTML = '';
 
     guids.forEach(item => {
         guid = item.id;
@@ -96,15 +98,36 @@ function updateguid() {
         }
     })
 
+    bsData.forEach((item, index) => {
+        let bsGuid = item.id;
+
+        if (bsGuid === guid) {
+            const trDiv = document.createElement('tr');
+
+            trDiv.innerHTML = `
+                <tr>
+                    <td>${item.asOfYear}</td>
+                    <td>${formatWholeNumber(item.CurrentAssets)}</td>
+                    <td>${formatWholeNumber(item.CashAndCashEquivalents)}</td>
+                    <td>${formatWholeNumber(item.AccountsReceivable)}</td>
+                    <td>${formatWholeNumber(item.Inventory)}</td>
+                    <td>${formatWholeNumber(item.GrossPPE)}</td>
+                    <td>${formatWholeNumber(item.TotalAssets)}</td>
+            `;
+
+            balanceSheetGrid.appendChild(trDiv);
+        }
+    })
+
     // Check if there are any matching records
     if (forecastGuids.length > 0) {
         // Target the first record
         const forecast = forecastGuids[0];
         let forecastId = forecast.id;
         // let costDataKeys = ['NominalValuePerShare', 'MarketValuePerShare', 'previousClose', 'beta']
-        let costDataKeys = ['NOM', 'Target Price', 'Mkt', 'Prev Close', 'beta']
-        let numbDataKeys = ['Dividend']
+        let costDataKeys = ['NOM', 'Target Price', 'Mkt', 'Prev Close', 'Dividend']
         let dateDataKeys = ['Ex Div Date']
+        let numbDataKeys = ['beta']
         let percentDataKeys = ['NOM Upside', 'IRR']
 
         // Render the values to the page
@@ -123,20 +146,6 @@ function updateguid() {
                 rowDiv.appendChild(colLabelDiv);
                 costGridId.appendChild(rowDiv)
             })
-            numbDataKeys.forEach(key => {
-                const rowDiv = document.createElement('div');
-                rowDiv.classList.add('row', 'mb-2');
-
-                const colLabelDiv = document.createElement('div');
-                colLabelDiv.innerHTML = `
-                <div class="row">
-                    <div class="col">${key}: </div>
-                    <div class="col">${formatDecimalNumber(forecast[key], 2)}</div>
-                </div>
-                `
-                rowDiv.appendChild(colLabelDiv);
-                percentGridId.appendChild(rowDiv)
-            })
             dateDataKeys.forEach(key => {
                 const rowDiv = document.createElement('div');
                 rowDiv.classList.add('row', 'mb-2');
@@ -146,6 +155,20 @@ function updateguid() {
                 <div class="row">
                     <div class="col">${key}: </div>
                     <div class="col">${formatDate(forecast[key])}</div>
+                </div>
+                `
+                rowDiv.appendChild(colLabelDiv);
+                costGridId.appendChild(rowDiv)
+            })
+            numbDataKeys.forEach(key => {
+                const rowDiv = document.createElement('div');
+                rowDiv.classList.add('row', 'mb-2');
+
+                const colLabelDiv = document.createElement('div');
+                colLabelDiv.innerHTML = `
+                <div class="row">
+                    <div class="col">${key}: </div>
+                    <div class="col">${formatDecimalNumber(forecast[key], 2)}</div>
                 </div>
                 `
                 rowDiv.appendChild(colLabelDiv);

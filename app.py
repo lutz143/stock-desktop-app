@@ -51,7 +51,7 @@ def send_meta_form():
     """)
     forecast_data = cursor.fetchall()
 
-    # query the server for all stock forecast data (including archived data)
+    # query the server for all stock income statement data
     cursor.execute(f"""
         SELECT id, Ticker, asOfYear, periodType, TotalRevenue, CostOfRevenue, GrossProfit, TotalExpenses, EBIT, BasicEPS, NetIncome
         FROM incomeStatement
@@ -59,6 +59,15 @@ def send_meta_form():
         GROUP BY id, Ticker, asOfYear, periodType, TotalRevenue, CostOfRevenue, GrossProfit, TotalExpenses, EBIT, BasicEPS, NetIncome
     """)
     income_data = cursor.fetchall()
+
+    # query the server for all stock balance sheet data
+    cursor.execute(f"""
+        SELECT id, Ticker, asOfYear, periodType, CurrentAssets, CashAndCashEquivalents, AccountsReceivable, Inventory, GrossPPE, TotalAssets
+        FROM balanceSheet
+        WHERE periodType <> 'TTM'
+        GROUP BY id, Ticker, asOfYear, periodType, CurrentAssets, CashAndCashEquivalents, AccountsReceivable, Inventory, GrossPPE, TotalAssets
+    """)
+    balance_sheet_data = cursor.fetchall()
 
 
     # query the server for all stock forecast data (including archived data)
@@ -73,7 +82,7 @@ def send_meta_form():
     cursor.close()
     connection.close()
 
-    return render_template('meta.html', metadata=metadata, forecast_data=forecast_data, financial_forecast_data=financial_forecast_data, income_data = income_data)
+    return render_template('meta.html', metadata=metadata, forecast_data=forecast_data, financial_forecast_data=financial_forecast_data, income_data = income_data, balance_sheet_data = balance_sheet_data)
 
 
 
