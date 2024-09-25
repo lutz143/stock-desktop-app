@@ -4,6 +4,14 @@ body {
     background-color: var(--light-gray);
 }
 
+header {
+    font-family: 'Orbitron', Arial, sans-serif;
+    background-color: var(--dark-blue);
+    color: white;
+    padding: 8px;
+    text-align: center;
+}
+
 textarea {
     min-height: 25vh;
     font-size: 14px;
@@ -45,6 +53,10 @@ li input {
 
 .col {
     flex: 1;
+}
+
+.container {
+    padding: 0;
 }
 
 .meta-body {

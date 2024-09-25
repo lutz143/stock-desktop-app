@@ -89,7 +89,7 @@ function updateguid() {
                     <td>${formatWholeNumber(item.EBIT)}</td>
                     <td>${formatWholeNumber(item.NetIncome)}</td>
                     <td>${formatDecimalNumber(item.BasicEPS, 2)}</td>
-                    <td>${formatPercent(item.NetIncome / item.TotalRevenue)}</td>
+                    <td>${formatPercent(item.EBIT / item.TotalRevenue)}</td>
             `;
 
             incomeStatementGrid.appendChild(trDiv);

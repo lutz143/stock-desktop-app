@@ -139,7 +139,7 @@ select {
     color: white !important;
 }
 
-/* Add this CSS to your stylesheet */
+/* No wrap styling for long text overflow on data table */
 .nowrap {
     white-space: nowrap;
     overflow: hidden;
