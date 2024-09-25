@@ -9,17 +9,19 @@ function fetchMetaData() {
             data.forEach(function(row) {
                 table.row.add([
                     row.Ticker,
+                    `$${formatDecimalNumber(row.previousClose, 2)}`,
+                    `$${formatDecimalNumber(row.targetMeanPrice, 2)}`,
                     `<a href=${row.website} target="_blank">${row.website}</a>`,
                     formatWholeNumber(row.fullTimeEmployees),
                     `<span title="${row.longBusinessSummary}">${row.longBusinessSummary}</span>`,
                     row.industry,
                     row.sector,
-                    row.pegRatio,
+                    formatDecimalNumber(row.pegRatio, 1),
+                    formatDecimalNumber(row.trailingPE, 1),
                     formatDecimalNumber(row.beta, 2),
                     `$${formatDecimalNumber(row.dividendRate, 2)}`,
-                    formatDecimalNumber(row.trailingAnnualDividendRate, 2),
-                    row.exDividendDate,
-                    row.targetMeanPrice
+                    `$${formatDecimalNumber(row.trailingAnnualDividendRate, 2)}`,
+                    formatDate(row.exDividendDate),
                 ]).draw();
             });
         }

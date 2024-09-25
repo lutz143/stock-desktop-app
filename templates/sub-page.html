@@ -43,8 +43,10 @@
             <thead>
                 <tr>
                     <th>Ticker</th>
+                    <th>Prev Close</th>
+                    <th>Analyst Price</th>
                     <th>Website</th>
-                    <th>Number of Employees</th>
+                    <th># of Employees</th>
                     <th>Business Summary</th>
                     <th>Industry</th>
                     <th>Sector</th>
@@ -52,11 +54,11 @@
 PEG Ratio < 1: This suggests that the stock may be undervalued relative to its earnings growth. A low PEG ratio can indicate that the stock is a good investment opportunity.
 PEG Ratio = 1: This suggests that the stock is fairly valued.
 PEG Ratio > 1: This indicates that the stock may be overvalued relative to its earnings growth.">PEG Ratio</th>
+                    <th>Trailing P/E</th>
                     <th>Beta</th>
                     <th>Dividend (Annual)</th>
                     <th>Trailing Div Rate</th>
                     <th>Ex Div Date</th>
-                    <th>Target Price Mean</th>
                 </tr>
             </thead>
             <tbody>
@@ -77,7 +79,7 @@ PEG Ratio > 1: This indicates that the stock may be overvalued relative to its e
                     <th>Previous Close</th>
                     <th>Market Value PS</th>
                     <th>Nominal PS</th>
-                    <th>Target Price Mean</th>
+                    <th>Analyst Price</th>
                     <th>Target Price Upside</th>
                     <th>IRR</th>
                     <th>Profit Margin</th>
@@ -125,7 +127,7 @@ PEG Ratio > 1: This indicates that the stock may be overvalued relative to its e
                     ],
                     "columnDefs": [
                         {
-                            targets: 3, // Adjust the index based on your column order; if longBusinessSummary is the 4th column, use 3
+                            targets: 5, // Adjust the index based on your column order; if longBusinessSummary is the 4th column, use 3
                             className: 'nowrap'
                         }
                     ]
