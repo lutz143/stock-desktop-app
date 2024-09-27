@@ -174,7 +174,7 @@
                 <div class="card mb-3">
                     <div class="card-body">
                         <div style="display: flex; flex-direction: row; justify-content: space-between;">
-                            <h3>Balance Sheet</h3>
+                            <h3>Balance Sheet: Assets</h3>
                         </div>
                         <!-- Start of the DataTable render -->
                         <div class="container">
@@ -189,6 +189,29 @@
                                             <th>Inventory</th>
                                             <th>PPE</th>
                                             <th>Total Assets</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="balance-sheet-grid">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- End of the DataTable -->
+                    </div>
+                </div>
+
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <div style="display: flex; flex-direction: row; justify-content: space-between;">
+                            <h3>Balance Sheet: Liabilities</h3>
+                        </div>
+                        <!-- Start of the DataTable render -->
+                        <div class="container">
+                            <div class="table-responsive">
+                                <table class="table table-striped" id="forecast-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Year</th>
                                             <th>Current Liabilities</th>
                                             <th>AP</th>
                                             <th>Current Debt</th>
@@ -196,7 +219,34 @@
                                             <th>Total Liabilities</th>
                                         </tr>
                                     </thead>
-                                    <tbody id="balance-sheet-grid">
+                                    <tbody id="balance-sheet-liabilities-grid">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- End of the DataTable -->
+                    </div>
+                </div>
+                
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <div style="display: flex; flex-direction: row; justify-content: space-between;">
+                            <h3>Balance Sheet: Equity</h3>
+                        </div>
+                        <!-- Start of the DataTable render -->
+                        <div class="container">
+                            <div class="table-responsive">
+                                <table class="table table-striped" id="forecast-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Year</th>
+                                            <th>Retained Earnings</th>
+                                            <th>Common Stock</th>
+                                            <th>Additional Paid-In Capital</th>
+                                            <th>Shareholder's Equity</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="balance-sheet-equity-grid">
                                     </tbody>
                                 </table>
                             </div>

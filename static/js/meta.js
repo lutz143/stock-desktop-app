@@ -10,6 +10,8 @@ const percentGridId = document.getElementById("percent-grid");
 const incomeForecastGrid = document.getElementById("income-forecast-grid");
 const incomeStatementGrid = document.getElementById("income-statement-grid");
 const balanceSheetGrid = document.getElementById("balance-sheet-grid");
+const balanceSheetLiabilitiesGrid = document.getElementById("balance-sheet-liabilities-grid");
+const balanceSheetEquityGrid = document.getElementById("balance-sheet-equity-grid");
 
 
 const tickers = [...new Set(metaData.map(item => item.Ticker))]; // set duplicate tickers to unique values only
@@ -35,6 +37,8 @@ function updateguid() {
     incomeForecastGrid.innerHTML = '';
     incomeStatementGrid.innerHTML = '';
     balanceSheetGrid.innerHTML = '';
+    balanceSheetLiabilitiesGrid.innerHTML = '';
+    balanceSheetEquityGrid.innerHTML = '';
 
     guids.forEach(item => {
         guid = item.id;
@@ -113,6 +117,21 @@ function updateguid() {
                     <td>${formatWholeNumber(item.Inventory)}</td>
                     <td>${formatWholeNumber(item.GrossPPE)}</td>
                     <td>${formatWholeNumber(item.TotalAssets)}</td>
+            `;
+
+            balanceSheetGrid.appendChild(trDiv);
+        }
+    })
+    
+    bsData.forEach((item, index) => {
+        let bsGuid = item.id;
+
+        if (bsGuid === guid) {
+            const trDiv = document.createElement('tr');
+
+            trDiv.innerHTML = `
+                <tr>
+                    <td>${item.asOfYear}</td>
                     <td>${formatWholeNumber(item.CurrentLiabilities)}</td>
                     <td>${formatWholeNumber(item.Payables)}</td>
                     <td>${formatWholeNumber(item.CurrentDebt)}</td>
@@ -120,7 +139,26 @@ function updateguid() {
                     <td>${formatWholeNumber(item.TotalLiabilities)}</td>
             `;
 
-            balanceSheetGrid.appendChild(trDiv);
+            balanceSheetLiabilitiesGrid.appendChild(trDiv);
+        }
+    })
+    
+    bsData.forEach((item, index) => {
+        let bsGuid = item.id;
+
+        if (bsGuid === guid) {
+            const trDiv = document.createElement('tr');
+
+            trDiv.innerHTML = `
+                <tr>
+                    <td>${item.asOfYear}</td>
+                    <td>${formatWholeNumber(item.RetainedEarnings)}</td>
+                    <td>${formatWholeNumber(item.CommonStock)}</td>
+                    <td>${formatWholeNumber(item.AdditionalPaidInCapital)}</td>
+                    <td>${formatWholeNumber(item.TotalEquity)}</td>
+            `;
+
+            balanceSheetEquityGrid.appendChild(trDiv);
         }
     })
 
