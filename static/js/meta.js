@@ -113,6 +113,11 @@ function updateguid() {
                     <td>${formatWholeNumber(item.Inventory)}</td>
                     <td>${formatWholeNumber(item.GrossPPE)}</td>
                     <td>${formatWholeNumber(item.TotalAssets)}</td>
+                    <td>${formatWholeNumber(item.CurrentLiabilities)}</td>
+                    <td>${formatWholeNumber(item.Payables)}</td>
+                    <td>${formatWholeNumber(item.CurrentDebt)}</td>
+                    <td>${formatWholeNumber(item.LongTermDebt)}</td>
+                    <td>${formatWholeNumber(item.TotalLiabilities)}</td>
             `;
 
             balanceSheetGrid.appendChild(trDiv);
