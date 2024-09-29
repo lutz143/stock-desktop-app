@@ -43,6 +43,11 @@ function formatDate(inputDate) {
 
 }
 
+// Function to replace null values with 0 in an array
+function replaceNullWithZero(dataArray) {
+    return dataArray.map(item => (item === null || item === undefined) ? 0 : item);
+}
+
 // function formatDollarAmount(amount, decimal) {
 //     // amount = parseFloat(amount.toFixed(1));
 

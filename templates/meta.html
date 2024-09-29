@@ -260,6 +260,29 @@
             
 
             <div class="col-md-4 four-cards">
+
+                <div class="card mb-3" id="income-chart" style="display: none;">
+                    <div class="card-body">
+                        <h3 class="card-title">
+                            Income Ratio
+                            <span><a href="./ice-curve" target="_blank" style="text-decoration: none;">&#129482;</a></span>
+                        </h3>
+                        <canvas id="incomeChart" width="800" height="400"></canvas>
+                        <!-- Bell Curve being loaded from bellCurve.js -->
+                    </div>
+                </div>
+     
+                <div class="card mb-3" id="assets-chart" style="display: none;">
+                    <div class="card-body">
+                        <h3 class="card-title">
+                            Assets Ratio
+                            <span><a href="./ice-curve" target="_blank" style="text-decoration: none;">&#129482;</a></span>
+                        </h3>
+                        <canvas id="assetsChart" width="800" height="400"></canvas>
+                        <!-- Bell Curve being loaded from bellCurve.js -->
+                    </div>
+                </div>
+
                 <div class="card mb-3" id="bell-curve" style="display: none;">
                     <div class="card-body">
                         <h3 class="card-title">
@@ -270,9 +293,40 @@
                         <!-- Bell Curve being loaded from bellCurve.js -->
                     </div>
                 </div>
+
+
+
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <div style="display: flex; flex-direction: row; justify-content: space-between;">
+                            <h3>Cash Flow</h3>
+                        </div>
+                        <!-- Start of the DataTable render -->
+                        <div class="container">
+                            <div class="table-responsive">
+                                <table class="table table-striped" id="forecast-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Year</th>
+                                            <th>Operating Gains/Loss</th>
+                                            <th>Depr Amort</th>
+                                            <th>Change in NWC</th>
+                                            <th>Operating CF</th>
+                                            <th>CAPEX</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="cash-flow-grid">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- End of the DataTable -->
+                    </div>
+                </div>
+
+
+
             </div>
-
-
         </div>
     </div>    
 </body>
@@ -293,10 +347,11 @@
     const financialForecastData = {{ financial_forecast_data | tojson }};
     const incomeData = {{ income_data | tojson }};
     const bsData = {{ balance_sheet_data | tojson }};
-    console.log(bsData);
+    const cfData = {{ cash_flow_data | tojson }};
 </script>
 <script src=https://cdnjs.cloudflare.com/ajax/libs/jstat/1.9.5/jstat.min.js integrity="sha512-MGT8BGoc8L3124PwHEGTC+M8Hu9oIbZOg8ENcd92sQKKidWKOOOZ6bqQemqYAX0yXJUnovOkF4Hx9gc/5lVxPw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="../static/js/utils.js"></script>
 <script src="../static/js/bellCurve.js"></script>
+<script src="../static/js/assetsChart.js"></script>
 <script src="../static/js/meta.js"></script>
 </html>

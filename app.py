@@ -69,6 +69,15 @@ def send_meta_form():
     """)
     balance_sheet_data = cursor.fetchall()
 
+    # query the server for all stock cash flow data
+    cursor.execute(f"""
+        SELECT id, Ticker, asOfYear, periodType, OperatingGainsLosses, DepreciationAndAmortization, ChangeInWorkingCapital, CashFlowFromContinuingOperatingActivities, CapitalExpenditure, CashFlowFromContinuingInvestingActivities, CashFlowFromContinuingInvestingActivities, NetIssuancePaymentsOfDebt, NetCommonStockIssuance, CashFlowFromContinuingFinancingActivities, ChangesInCash, EndCashPosition
+        FROM cashFlow
+        WHERE periodType <> 'TTM'
+        GROUP BY id, Ticker, asOfYear, periodType, OperatingGainsLosses, DepreciationAndAmortization, ChangeInWorkingCapital, CashFlowFromContinuingOperatingActivities, CapitalExpenditure, CashFlowFromContinuingInvestingActivities, CashFlowFromContinuingInvestingActivities, NetIssuancePaymentsOfDebt, NetCommonStockIssuance, CashFlowFromContinuingFinancingActivities, ChangesInCash, EndCashPosition
+    """)
+    cash_flow_data = cursor.fetchall()
+
 
     # query the server for all stock forecast data (including archived data)
     cursor.execute(f"""
@@ -82,7 +91,7 @@ def send_meta_form():
     cursor.close()
     connection.close()
 
-    return render_template('meta.html', metadata=metadata, forecast_data=forecast_data, financial_forecast_data=financial_forecast_data, income_data = income_data, balance_sheet_data = balance_sheet_data)
+    return render_template('meta.html', metadata=metadata, forecast_data=forecast_data, financial_forecast_data=financial_forecast_data, income_data = income_data, balance_sheet_data = balance_sheet_data, cash_flow_data = cash_flow_data)
 
 
 

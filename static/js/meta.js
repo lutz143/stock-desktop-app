@@ -12,6 +12,7 @@ const incomeStatementGrid = document.getElementById("income-statement-grid");
 const balanceSheetGrid = document.getElementById("balance-sheet-grid");
 const balanceSheetLiabilitiesGrid = document.getElementById("balance-sheet-liabilities-grid");
 const balanceSheetEquityGrid = document.getElementById("balance-sheet-equity-grid");
+const cashFlowGrid = document.getElementById("cash-flow-grid");
 
 
 const tickers = [...new Set(metaData.map(item => item.Ticker))]; // set duplicate tickers to unique values only
@@ -39,6 +40,7 @@ function updateguid() {
     balanceSheetGrid.innerHTML = '';
     balanceSheetLiabilitiesGrid.innerHTML = '';
     balanceSheetEquityGrid.innerHTML = '';
+    cashFlowGrid.innerHTML = '';
 
     guids.forEach(item => {
         guid = item.id;
@@ -161,6 +163,26 @@ function updateguid() {
             balanceSheetEquityGrid.appendChild(trDiv);
         }
     })
+    
+    cfData.forEach((item, index) => {
+        let cfGuid = item.id;
+
+        if (cfGuid === guid) {
+            const trDiv = document.createElement('tr');
+
+            trDiv.innerHTML = `
+                <tr>
+                    <td>${item.asOfYear}</td>
+                    <td>${formatWholeNumber(item.OperatingGainsLosses)}</td>
+                    <td>${formatWholeNumber(item.DepreciationAndAmortization)}</td>
+                    <td>${formatWholeNumber(item.ChangeInWorkingCapital)}</td>
+                    <td>${formatWholeNumber(item.CashFlowFromContinuingOperatingActivities)}</td>
+                    <td>${formatWholeNumber(item.CapitalExpenditure)}</td>
+            `;
+
+            cashFlowGrid.appendChild(trDiv);
+        }
+    })
 
     // Check if there are any matching records
     if (forecastGuids.length > 0) {
@@ -237,5 +259,7 @@ function updateguid() {
 
 ticker.addEventListener("change", updateguid);
 ticker.addEventListener("change", calcConfidence);
+ticker.addEventListener("change", assetsChartGenerator);
+ticker.addEventListener("change", incomeChartGenerator);
 
 updateguid();
