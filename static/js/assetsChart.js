@@ -96,30 +96,43 @@ function barLineChart(xaxis, label1, label2, label3, bar1data, bar2data, linedat
             ]
         },
         options: {
+            legend: {
+                position: 'bottom'
+            },
             scales: {
                 yAxes: [{
                     id: 'y0',
-                    beginAtZero: true,
                     position: 'left',
-                    title: {
+                    scaleLabel: {
                         display: true,
-                        text: `${label1} / ${label2}`
+                        labelString: `${label1} / ${label2}`
                     },
                     ticks: {
                         callback: function(value) {
+                            value = value / 1000000
                             return '$' + value.toLocaleString(); // Format as currency
+                        }
+                    },
+                    tooltips: {
+                        callbacks: {
+                            label: function(tooltipItem, data) {
+                                return '$' + tooltipItem.yLabel;
+                            }
                         }
                     }
                 },
                 {
                     id: 'y1',
-                    beginAtZero: true,
                     position: 'right',
-                    title: {
+                    gridLines: {
+                        display: false
+                    },
+                    scaleLabel: {
                         display: true,
-                        text: `${label3}`
+                        labelString: `${label3}`
                     },
                     ticks: {
+                        beginAtZero: true,
                         callback: function(value) {
                             return formatPercent(value) // Convert to percentage
                         }
