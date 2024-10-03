@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>Recreate ICE Chart</title>
+</head>
+<body>
+    <canvas id="iceChart"></canvas>
+    <script>
+        const ctx = document.getElementById('iceChart').getContext('2d');
+        const iceChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Optimistic (20/80)', 'Bid Cost', 'Nominal (50/50)', 'Mid-Point (65/35)', 'Conservative (80/20)'],
+                datasets: [{
+                    label: 'CUM Probability (%)',
+                    data: [20, 30, 50, 65, 80],
+                    borderColor: 'black',
+                    borderWidth: 2,
+                    fill: false,
+                    pointBackgroundColor: ['black', 'blue', 'green', 'black', 'orange'],
+                    pointBorderColor: ['black', 'blue', 'green', 'black', 'orange'],
+                    pointStyle: ['rect', 'triangle', 'rectRot', 'rect', 'rectRot'], // Custom shapes
+                    pointRadius: [8, 8, 8, 8, 8],
+                    tension: 0.4  // Makes the line curve smoothly
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100,
+                        title: {
+                            display: true,
+                            text: 'CUM Probability (%)',
+                            font: {
+                                size: 16
+                            }
+                        },
+                        ticks: {
+                            stepSize: 20
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Cost Outcome Range ($)',
+                            font: {
+                                size: 16
+                            }
+                        },
+                        ticks: {
+                            display: false  // Removes x-axis labels under the points to match the original
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false // Removes default legend
+                    },
+                    annotation: {
+                        annotations: {
+                            box1: {
+                                type: 'label',
+                                xValue: 1,
+                                yValue: 30,
+                                backgroundColor: 'rgba(0,0,0,0)',
+                                borderColor: 'black',
+                                content: ['Bid Cost'],
+                                color: 'blue',
+                                font: {
+                                    size: 14
+                                },
+                                position: 'center'
+                            },
+                            box2: {
+                                type: 'label',
+                                xValue: 2,
+                                yValue: 50,
+                                backgroundColor: 'rgba(0,0,0,0)',
+                                borderColor: 'black',
+                                content: ['Nominal', '(50/50)'],
+                                color: 'green',
+                                font: {
+                                    size: 14
+                                },
+                                position: 'center'
+                            },
+                            box3: {
+                                type: 'label',
+                                xValue: 4,
+                                yValue: 80,
+                                backgroundColor: 'rgba(0,0,0,0)',
+                                borderColor: 'black',
+                                content: ['Conservative', '(80/20)'],
+                                color: 'orange',
+                                font: {
+                                    size: 14
+                                },
+                                position: 'center'
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
