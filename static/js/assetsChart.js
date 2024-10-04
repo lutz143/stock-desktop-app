@@ -69,22 +69,6 @@ function barLineChart(xaxis, label1, label2, label3, bar1data, bar2data, linedat
             labels: xaxis, // Replace with your year labels
             datasets: [
                 {
-                    label: label1,
-                    data: bar1data,
-                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                    borderColor: 'rgba(54, 162, 235, 1)',
-                    borderWidth: 1,
-                    yAxisID: 'y0', // Use the first axis
-                },
-                {
-                    label: label2,
-                    data: bar2data,
-                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                    borderColor: 'rgba(255, 99, 132, 1)',
-                    borderWidth: 1,
-                    yAxisID: 'y0', // Use the first axis
-                },
-                {
                     label: label3,
                     data: linedata,
                     type: 'line', // Line chart for this dataset
@@ -92,7 +76,23 @@ function barLineChart(xaxis, label1, label2, label3, bar1data, bar2data, linedat
                     backgroundColor: 'rgba(75, 192, 192, 0.2)',
                     yAxisID: 'y1', // Use the second axis
                     fill: false
-                }
+                },
+                {
+                    label: label1,
+                    data: bar1data,
+                    backgroundColor: 'rgba(217, 217, 217, 0.6)',
+                    borderColor: 'rgba(217, 217, 217, 1)',
+                    borderWidth: 1,
+                    yAxisID: 'y0', // Use the first axis
+                },
+                {
+                    label: label2,
+                    data: bar2data,
+                    backgroundColor: 'rgba(12, 120, 194, 0.7)',
+                    borderColor: 'rgba(12, 120, 194, 1)',
+                    borderWidth: 1,
+                    yAxisID: 'y0', // Use the first axis
+                },
             ]
         },
         options: {
