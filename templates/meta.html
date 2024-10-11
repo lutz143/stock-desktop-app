@@ -71,6 +71,12 @@
                                         <!-- dynamically being loaded from js -->
                                     </input>
                                 </li>
+                                <li>
+                                    <div>Reported Free Cash Flow:&nbsp;</div>
+                                    <input class="edit-field" id="reported-fcf" readonly>
+                                        <!-- dynamically being loaded from js -->
+                                    </input>
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -106,37 +112,14 @@
                     </div>
                 </div>
 
-                <div class="card mb-3">
+                <div class="card mb-3" id="income-chart" style="display: none;">
                     <div class="card-body">
-                        <div style="display: flex; flex-direction: row; justify-content: space-between;">
-                            <h3>Forecast Summary</h3>
-                        </div>
-                        <!-- Start of the DataTable render -->
-                        <div class="container">
-                            <div class="table-responsive">
-                                <table class="table table-striped" id="forecast-table">
-                                    <thead>
-                                        <tr>
-                                            <th>Year</th>
-                                            <th>Revenue</th>
-                                            <th>Revenue Growth</th>
-                                            <th>COGS</th>
-                                            <th>Oper Exp</th>
-                                            <th>EBIT</th>
-                                            <th>Plus D&A</th>
-                                            <th>Less Taxes</th>
-                                            <th>Less CAPEX</th>
-                                            <th>Less NWC Change</th>                                            
-                                            <th title="Net of fiscal year fraction">Net FCF</th>
-                                            <th>ROS</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="income-forecast-grid">
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <!-- End of the DataTable -->
+                        <h3 class="card-title">
+                            Income Ratio
+                            <span><a href="./ice-curve" target="_blank" style="text-decoration: none;">&#129482;</a></span>
+                        </h3>
+                        <canvas id="incomeChart" width="800" height="400"></canvas>
+                        <!-- Bell Curve being loaded from bellCurve.js -->
                     </div>
                 </div>
                 
@@ -170,7 +153,59 @@
                         <!-- End of the DataTable -->
                     </div>
                 </div>
-                
+
+            </div>
+
+            
+
+            <div class="col-md-4 four-cards">
+
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <div style="display: flex; flex-direction: row; justify-content: space-between;">
+                            <h3>Forecast Summary</h3>
+                        </div>
+                        <!-- Start of the DataTable render -->
+                        <div class="container">
+                            <div class="table-responsive">
+                                <table class="table table-striped" id="forecast-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Year</th>
+                                            <th>Revenue</th>
+                                            <th>Revenue Growth</th>
+                                            <th>COGS</th>
+                                            <th>Oper Exp</th>
+                                            <th>EBIT</th>
+                                            <th>Plus D&A</th>
+                                            <th>Less Taxes</th>
+                                            <th>Less CAPEX</th>
+                                            <th>Less NWC Change</th>                                            
+                                            <th title="Net of fiscal year fraction">Net FCF</th>
+                                            <th>ROS</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="income-forecast-grid">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- End of the DataTable -->
+                    </div>
+                </div>
+
+     
+                <div class="card mb-3" id="assets-chart" style="display: none;">
+                    <div class="card-body">
+                        <h3 class="card-title">
+                            Assets Ratio
+                            <span><a href="./ice-curve" target="_blank" style="text-decoration: none;">&#129482;</a></span>
+                        </h3>
+                        <canvas id="assetsChart" width="800" height="400"></canvas>
+                        <!-- Bell Curve being loaded from bellCurve.js -->
+                    </div>
+                </div>
+
                 <div class="card mb-3">
                     <div class="card-body">
                         <div style="display: flex; flex-direction: row; justify-content: space-between;">
@@ -252,34 +287,6 @@
                             </div>
                         </div>
                         <!-- End of the DataTable -->
-                    </div>
-                </div>
-
-            </div>
-
-            
-
-            <div class="col-md-4 four-cards">
-
-                <div class="card mb-3" id="income-chart" style="display: none;">
-                    <div class="card-body">
-                        <h3 class="card-title">
-                            Income Ratio
-                            <span><a href="./ice-curve" target="_blank" style="text-decoration: none;">&#129482;</a></span>
-                        </h3>
-                        <canvas id="incomeChart" width="800" height="400"></canvas>
-                        <!-- Bell Curve being loaded from bellCurve.js -->
-                    </div>
-                </div>
-     
-                <div class="card mb-3" id="assets-chart" style="display: none;">
-                    <div class="card-body">
-                        <h3 class="card-title">
-                            Assets Ratio
-                            <span><a href="./ice-curve" target="_blank" style="text-decoration: none;">&#129482;</a></span>
-                        </h3>
-                        <canvas id="assetsChart" width="800" height="400"></canvas>
-                        <!-- Bell Curve being loaded from bellCurve.js -->
                     </div>
                 </div>
 

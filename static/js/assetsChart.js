@@ -48,6 +48,31 @@ function incomeChartGenerator() {
     barLineChart(years, 'Revenue', 'EBIT', 'ROS', revenue, ebit, ratio, ctx3, 'incomeChart');
 }
 
+
+function cashEbitChartGenerator() {
+    const incomeChartCard = document.getElementById("income-chart");
+    const ctx3 = document.getElementById('incomeChart').getContext('2d');
+
+    let years = []
+    let cash = []
+    let ebit = []
+    let ratio = []
+
+    incomeData.forEach((item, index) => {
+        let incomeGuid = item.id;
+
+        if (incomeGuid === guid) {
+            incomeChartCard.style.display = "flex";
+            years.push(item.asOfYear);
+            cash.push(item.Totalcash);
+            ebit.push(item.EBIT);
+            ratio.push(item.EBIT / item.Totalcash);
+        }
+    });
+
+    barLineChart(years, 'Cash', 'EBIT', 'ROS', cash, ebit, ratio, ctx3, 'incomeChart');
+}
+
 // ====================== START OF CHART GENERATION AND RENDERING TO PAGE ======================
 function barLineChart(xaxis, label1, label2, label3, bar1data, bar2data, linedata, ctx, chartType) {
 

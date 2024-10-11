@@ -4,6 +4,7 @@ const websiteId = document.getElementById("website");
 const industryId = document.getElementById("industry");
 const sectorId = document.getElementById("sector");
 const peRatioId = document.getElementById("pe-ratio");
+const reportFcfId = document.getElementById("reported-fcf");
 const busSummaryId = document.getElementById("business-summary");
 const costGridId = document.getElementById("cost-grid");
 const percentGridId = document.getElementById("percent-grid");
@@ -52,6 +53,7 @@ function updateguid() {
             industryId.value = item.industry;
             sectorId.value = item.sector;
             peRatioId.value = formatDecimalNumber(item.trailingPE, 1);
+            reportFcfId.value = `$${formatDecimalNumber(item.freeCashflow, 0)}`;
             busSummaryId.value = item.longBusinessSummary;
         }
     })
