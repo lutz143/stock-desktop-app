@@ -13,7 +13,7 @@ function peIndustryChart() {
     peAvg.forEach((item) => {
         industryChartCard.style.display = "flex";
         industry.push(item.industry);
-        peRatio.push(item.peRatio);
+        peRatio.push(item.peRatio * 100);
         profitMargins.push(item.profitMargin);
         divYield.push(item.divYield);        
     });
@@ -68,6 +68,14 @@ function barLineChart(xaxis, label1, label2, label3, bar1data, bar2data, linedat
             labels: xaxis, // Industry names as x-axis labels
             datasets: [
                 {
+                    label: label1,
+                    data: bar1data,
+                    backgroundColor: 'rgba(217, 217, 217, 0.6)',
+                    borderColor: 'rgba(217, 217, 217, 1)',
+                    borderWidth: 1,
+                    yAxisID: 'y0', // Use the first axis
+                },
+                {
                     label: label3,
                     data: linedata,
                     // type: 'line', // Line chart for this dataset
@@ -77,20 +85,12 @@ function barLineChart(xaxis, label1, label2, label3, bar1data, bar2data, linedat
                     fill: false
                 },
                 {
-                    label: label1,
-                    data: bar1data,
-                    backgroundColor: 'rgba(217, 217, 217, 0.6)',
-                    borderColor: 'rgba(217, 217, 217, 1)',
-                    borderWidth: 1,
-                    yAxisID: 'y0', // Use the first axis
-                },
-                {
                     label: label2,
                     data: bar2data,
                     backgroundColor: 'rgba(12, 120, 194, 0.7)',
                     borderColor: 'rgba(12, 120, 194, 1)',
                     borderWidth: 1,
-                    yAxisID: 'y0', // Use the first axis
+                    yAxisID: 'y1', // Use the first axis
                 },
             ]
         },
@@ -104,7 +104,7 @@ function barLineChart(xaxis, label1, label2, label3, bar1data, bar2data, linedat
                     position: 'left',
                     scaleLabel: {
                         display: true,
-                        labelString: `${label1} / ${label2}`
+                        labelString: `${label1}`
                     },
                     ticks: {
                         callback: function(value) {
@@ -128,7 +128,7 @@ function barLineChart(xaxis, label1, label2, label3, bar1data, bar2data, linedat
                     },
                     scaleLabel: {
                         display: true,
-                        labelString: `${label3}`
+                        labelString: `${label3} / / ${label2}`
                     },
                     ticks: {
                         beginAtZero: true,
