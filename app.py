@@ -27,14 +27,28 @@ def get_db_connection():
     )
     return connection
 
+# fetch and render the homepage
 @app.route('/')
 def index():
-    return render_template('index.html')
+    connection = get_db_connection()
+    cursor = connection.cursor(dictionary=True)
+    # query the server for avg pe ratio by industry
+    query = '''
+        SELECT industry, AVG(trailingPE) as peRatio, AVG(profitMargins) as profitMargin
+        FROM MetaData
+        GROUP BY industry
+        ORDER BY industry
+    '''
+    cursor.execute(query)
+    avg_pe_industry = cursor.fetchall()
+
+    return render_template('index.html', avg_pe_industry=avg_pe_industry)
 
 @app.route('/sub-page')
 def subPage():
     return render_template('sub-page.html')
 
+# fetch and render metaData page
 @app.route('/metaData')
 def send_meta_form():
     connection = get_db_connection()

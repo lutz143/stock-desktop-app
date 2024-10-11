@@ -3,6 +3,7 @@ const employeesId = document.getElementById("employees");
 const websiteId = document.getElementById("website");
 const industryId = document.getElementById("industry");
 const sectorId = document.getElementById("sector");
+const profitMarginId = document.getElementById("profit-margin");
 const peRatioId = document.getElementById("pe-ratio");
 const reportFcfId = document.getElementById("reported-fcf");
 const busSummaryId = document.getElementById("business-summary");
@@ -52,6 +53,7 @@ function updateguid() {
             websiteId.innerHTML = `<a href=${item.website} target=_blank>${item.website}</a>`;
             industryId.value = item.industry;
             sectorId.value = item.sector;
+            profitMarginId.value = `${formatDecimalNumber(item.profitMargins*100, 2)}%`;
             peRatioId.value = formatDecimalNumber(item.trailingPE, 1);
             reportFcfId.value = `$${formatDecimalNumber(item.freeCashflow, 0)}`;
             busSummaryId.value = item.longBusinessSummary;
@@ -190,8 +192,6 @@ function updateguid() {
     if (forecastGuids.length > 0) {
         // Target the first record
         const forecast = forecastGuids[0];
-        let forecastId = forecast.id;
-        // let costDataKeys = ['NominalValuePerShare', 'MarketValuePerShare', 'previousClose', 'beta']
         let costDataKeys = ['NOM', 'Target Price', 'Mkt', 'Prev Close', 'Dividend']
         let dateDataKeys = ['Ex Div Date']
         let numbDataKeys = ['beta']
