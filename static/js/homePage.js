@@ -1,32 +1,62 @@
-let peChart; // Global variables to store individual chart instances
+let peChart; // Global variable to store the chart instance
 
 function peIndustryChart() {
     const industryChartCard = document.getElementById("industry-chart");
     const ctx2 = document.getElementById('industryChart').getContext('2d');
 
-    let industry = []
-    let peRatio = []
-    let profitMargins = []
-    let ratio = []
+    let industry = [];
+    let peRatio = [];
+    let profitMargins = [];
+    let divYield = [];
 
-    peAvg.forEach((item, index) => {
-        
+    // Assuming peAvg is your data source, this needs to be defined elsewhere
+    peAvg.forEach((item) => {
         industryChartCard.style.display = "flex";
         industry.push(item.industry);
         peRatio.push(item.peRatio);
         profitMargins.push(item.profitMargin);
-        // ratio.push((item.CurrentAssets - item.Inventory) / item.CurrentLiabilities);
-        
+        divYield.push(item.divYield);        
     });
 
-    barLineChart(industry, 'Industry', 'PE Ratio', 'Profit Margin', peRatio, profitMargins, ratio, ctx2, 'industryChart');
+    // Populate the industry filter dropdown
+    populateIndustryFilter(industry);
+
+    // Render the initial chart
+    peChart = barLineChart(industry, 'PE Ratio', 'Profit Margin', 'Dividend Yield', peRatio, profitMargins, divYield, ctx2, 'industryChart');
 }
 
+// Function to populate industry filter dropdown
+function populateIndustryFilter(industry) {
+    const industryFilter = document.getElementById('industryFilter');
+    industry.forEach(ind => {
+        const option = document.createElement('option');
+        option.value = ind;
+        option.textContent = ind;
+        industryFilter.appendChild(option);
+    });
+}
 
+// Function to filter data by selected industries
+function filterDataByIndustry(selectedIndustries, peAvg) {
+    let filteredIndustry = [];
+    let filteredPeRatio = [];
+    let filteredProfitMargins = [];
+    let filteredDivYield = [];
 
-// ====================== START OF CHART GENERATION AND RENDERING TO PAGE ======================
+    peAvg.forEach(item => {
+        if (selectedIndustries.includes(item.industry)) {
+            filteredIndustry.push(item.industry);
+            filteredPeRatio.push(item.peRatio);
+            filteredProfitMargins.push(item.profitMargin);
+            filteredDivYield.push(item.divYield)
+        }
+    });
+
+    return {filteredIndustry, filteredPeRatio, filteredProfitMargins, filteredDivYield};
+}
+
+// Function to generate or update the bar/line chart
 function barLineChart(xaxis, label1, label2, label3, bar1data, bar2data, linedata, ctx, chartType) {
-
 
     // Replace null values with 0
     bar1data = replaceNullWithZero(bar1data);
@@ -35,12 +65,12 @@ function barLineChart(xaxis, label1, label2, label3, bar1data, bar2data, linedat
     const newChart = new Chart(ctx, {
         type: 'bar', // Main chart type
         data: {
-            labels: xaxis, // Replace with your year labels
+            labels: xaxis, // Industry names as x-axis labels
             datasets: [
                 {
                     label: label3,
                     data: linedata,
-                    type: 'line', // Line chart for this dataset
+                    // type: 'line', // Line chart for this dataset
                     borderColor: 'rgba(75, 192, 192, 1)',
                     backgroundColor: 'rgba(75, 192, 192, 0.2)',
                     yAxisID: 'y1', // Use the second axis
@@ -78,13 +108,13 @@ function barLineChart(xaxis, label1, label2, label3, bar1data, bar2data, linedat
                     },
                     ticks: {
                         callback: function(value) {
-                            value = value / 1000000
+                            value = value / 1000000;
                             return '$' + value.toLocaleString(); // Format as currency
                         }
                     },
                     tooltips: {
                         callbacks: {
-                            label: function(tooltipItem, data) {
+                            label: function(tooltipItem) {
                                 return '$' + tooltipItem.yLabel;
                             }
                         }
@@ -103,7 +133,8 @@ function barLineChart(xaxis, label1, label2, label3, bar1data, bar2data, linedat
                     ticks: {
                         beginAtZero: true,
                         callback: function(value) {
-                            return formatPercent(value) // Convert to percentage
+                            value = value * 100
+                            return formatPercent(value); // Convert to percentage
                         }
                     }
                 }]
@@ -111,8 +142,36 @@ function barLineChart(xaxis, label1, label2, label3, bar1data, bar2data, linedat
         }
     });
 
+    return newChart;
 }
 
+// Function to replace null values with 0 in datasets
+function replaceNullWithZero(data) {
+    return data.map(item => item === null ? 0 : item);
+}
+
+// Function to format percentages
+function formatPercent(value) {
+    return value + '%';
+}
+
+// Apply filter on button click
+document.getElementById('applyFilter').addEventListener('click', function () {
+    const selectedIndustries = Array.from(document.getElementById('industryFilter').selectedOptions).map(option => option.value);
+
+    const {filteredIndustry, filteredPeRatio, filteredProfitMargins, filteredDivYield} = filterDataByIndustry(selectedIndustries, peAvg);
+
+    // Destroy the previous chart instance if it exists
+    if (peChart) {
+        peChart.destroy();
+    }
+
+    // Create a new chart with the filtered data
+    const ctx2 = document.getElementById('industryChart').getContext('2d');
+    peChart = barLineChart(filteredIndustry, 'PE Ratio', 'Profit Margin', 'Dividend Yield', filteredPeRatio, filteredProfitMargins, filteredDivYield, ctx2, 'industryChart');
+});
+
+// Initialize the chart when the DOM is loaded
 document.addEventListener('DOMContentLoaded', function () {
     peIndustryChart(); // Ensure the DOM is loaded before generating the chart
 });

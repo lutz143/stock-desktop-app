@@ -84,7 +84,7 @@
 /* Body Styling */
 .landing-body {
     text-align: center;
-    background-color: var(--charcoal-black);
+    background-color: var(--white);
     min-height: 100vh;
 }
 

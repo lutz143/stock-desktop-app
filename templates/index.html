@@ -16,29 +16,35 @@
 </head>
 
 <body class="landing-body">
-  <header class="landing-header">
-    <div class="landing-container">
-        <h1>Stock Database</h1>
-        <nav>
-            <ul>
-                <li><a href="/metaData" target="_blank">All Stocks</a></li>
-                <li><a href="#">Today's Stocks</a></li>
-                <li><a href="/sub-page" target="_blank">Resources</a></li>
-                <li><a href="#">About</a></li>
-                <li><a href="#">Contact</a></li>
-            </ul>
-        </nav>
+    <header class="landing-header">
+        <div class="landing-container">
+            <h1>Stock Database</h1>
+            <nav>
+                <ul>
+                    <li><a href="/metaData" target="_blank">All Stocks</a></li>
+                    <li><a href="#">Today's Stocks</a></li>
+                    <li><a href="/sub-page" target="_blank">Resources</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <div class="ticker-container">
+        <div id="ticker-header"></div>
+        <div class="ticker-content">
+            <!-- ticker dynamically added here -->
+        </div>
     </div>
-  </header>
-  <div class="ticker-container">
-    <div id="ticker-header"></div>
-    <div class="ticker-content">
-      <!-- ticker dynamically added here -->
-    </div>
-  </div>
-  <div class="container-fluid" style="width: 100%;">
-    <div class="row" style="width: 100%;" id="industry-chart">
+
+
+    <div class="card mb-3" id="industry-chart" style="width: 90%; justify-content: center;">
         <div class="card-body">
+            <select id="industryFilter" multiple>
+                <!-- Industry options will be dynamically populated -->
+            </select>
+            <button id="applyFilter">Apply Filter</button>
+            <canvas id="industryChart"></canvas>
             <h3 class="card-title">
                 Industry Metrics
                 <span><a href="./ice-curve" target="_blank" style="text-decoration: none;">&#129482;</a></span>
@@ -47,13 +53,14 @@
             <!-- Bell Curve being loaded from bellCurve.js -->
         </div>
     </div>
-  </div>
-  <script>
-    const peAvg = {{ avg_pe_industry | tojson }};
-    console.log(peAvg);
-  </script>
-  <script src="../static/js/utils.js"></script>
-  <script src="../static/js/tickerScroll.js"></script>
-  <script src="../static/js/homePage.js"></script>
+    
+    <script>
+        const peAvg = {{ avg_pe_industry | tojson }};
+        console.log(peAvg);
+    </script>
+    <script src="../static/js/utils.js"></script>
+    <script src="../static/js/tickerScroll.js"></script>
+    <script src="../static/js/homePage.js"></script>
 </body>
+
 </html>

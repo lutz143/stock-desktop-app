@@ -34,7 +34,7 @@ def index():
     cursor = connection.cursor(dictionary=True)
     # query the server for avg pe ratio by industry
     query = '''
-        SELECT industry, AVG(trailingPE) as peRatio, AVG(profitMargins) as profitMargin
+        SELECT industry, AVG(trailingPE) as peRatio, AVG(profitMargins) as profitMargin, AVG(dividendYield) as divYield
         FROM MetaData
         GROUP BY industry
         ORDER BY industry
