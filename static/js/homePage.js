@@ -13,26 +13,41 @@ function peIndustryChart() {
     peAvg.forEach((item) => {
         industryChartCard.style.display = "flex";
         industry.push(item.industry);
-        peRatio.push(item.peRatio * 100);
-        profitMargins.push(item.profitMargin);
-        divYield.push(item.divYield);        
+        peRatio.push(item.peRatio);
+        profitMargins.push(item.profitMargin * 100);
+        divYield.push(item.divYield * 100);
     });
 
     // Populate the industry filter dropdown
     populateIndustryFilter(industry);
 
     // Render the initial chart
-    peChart = barLineChart(industry, 'PE Ratio', 'Profit Margin', 'Dividend Yield', peRatio, profitMargins, divYield, ctx2, 'industryChart');
+    peChart = barLineChart(industry, 'PE Ratio', 'Profit Margin', 'Div Yield', peRatio, profitMargins, divYield, ctx2, 'industryChart');
 }
 
-// Function to populate industry filter dropdown
+// Function to populate industry filter dropdown as Bootstrap switches
 function populateIndustryFilter(industry) {
     const industryFilter = document.getElementById('industryFilter');
+    industryFilter.innerHTML = ''; // Clear any previous content
+
     industry.forEach(ind => {
-        const option = document.createElement('option');
-        option.value = ind;
-        option.textContent = ind;
-        industryFilter.appendChild(option);
+        const switchWrapper = document.createElement('div');
+        switchWrapper.className = 'custom-control custom-switch mb-2';
+
+        const switchInput = document.createElement('input');
+        switchInput.type = 'checkbox';
+        switchInput.className = 'custom-control-input';
+        switchInput.id = `switch-${ind}`;
+        switchInput.value = ind;
+
+        const switchLabel = document.createElement('label');
+        switchLabel.className = 'custom-control-label';
+        switchLabel.setAttribute('for', `switch-${ind}`);
+        switchLabel.textContent = ind;
+
+        switchWrapper.appendChild(switchInput);
+        switchWrapper.appendChild(switchLabel);
+        industryFilter.appendChild(switchWrapper);
     });
 }
 
@@ -47,8 +62,8 @@ function filterDataByIndustry(selectedIndustries, peAvg) {
         if (selectedIndustries.includes(item.industry)) {
             filteredIndustry.push(item.industry);
             filteredPeRatio.push(item.peRatio);
-            filteredProfitMargins.push(item.profitMargin);
-            filteredDivYield.push(item.divYield)
+            filteredProfitMargins.push(item.profitMargin * 100);
+            filteredDivYield.push(item.divYield * 100);
         }
     });
 
@@ -57,40 +72,37 @@ function filterDataByIndustry(selectedIndustries, peAvg) {
 
 // Function to generate or update the bar/line chart
 function barLineChart(xaxis, label1, label2, label3, bar1data, bar2data, linedata, ctx, chartType) {
-
-    // Replace null values with 0
     bar1data = replaceNullWithZero(bar1data);
     bar2data = replaceNullWithZero(bar2data);
 
     const newChart = new Chart(ctx, {
-        type: 'bar', // Main chart type
+        type: 'bar',
         data: {
-            labels: xaxis, // Industry names as x-axis labels
+            labels: xaxis,
             datasets: [
                 {
                     label: label1,
                     data: bar1data,
                     backgroundColor: 'rgba(217, 217, 217, 0.6)',
                     borderColor: 'rgba(217, 217, 217, 1)',
-                    borderWidth: 1,
-                    yAxisID: 'y0', // Use the first axis
-                },
-                {
-                    label: label3,
-                    data: linedata,
-                    // type: 'line', // Line chart for this dataset
-                    borderColor: 'rgba(75, 192, 192, 1)',
-                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                    yAxisID: 'y1', // Use the second axis
+                    yAxisID: 'y0',
                     fill: false
                 },
                 {
                     label: label2,
                     data: bar2data,
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderWidth: 1,
+                    yAxisID: 'y1'
+                },
+                {
+                    label: label3,
+                    data: linedata,
                     backgroundColor: 'rgba(12, 120, 194, 0.7)',
                     borderColor: 'rgba(12, 120, 194, 1)',
                     borderWidth: 1,
-                    yAxisID: 'y1', // Use the first axis
+                    yAxisID: 'y1'
                 },
             ]
         },
@@ -99,45 +111,53 @@ function barLineChart(xaxis, label1, label2, label3, bar1data, bar2data, linedat
                 position: 'bottom'
             },
             scales: {
-                yAxes: [{
-                    id: 'y0',
-                    position: 'left',
-                    scaleLabel: {
-                        display: true,
-                        labelString: `${label1}`
-                    },
-                    ticks: {
-                        callback: function(value) {
-                            value = value / 1000000;
-                            return '$' + value.toLocaleString(); // Format as currency
+                yAxes: [
+                    {
+                        id: 'y0',
+                        position: 'left',
+                        scaleLabel: {
+                            display: true,
+                            labelString: `${label1}`
+                        },
+                        ticks: {
+                            callback: function (value) {
+                                return '$' + value.toLocaleString(); // Format as currency
+                            }
                         }
                     },
-                    tooltips: {
-                        callbacks: {
-                            label: function(tooltipItem) {
-                                return '$' + tooltipItem.yLabel;
+                    {
+                        id: 'y1',
+                        position: 'right',
+                        gridLines: {
+                            display: false
+                        },
+                        scaleLabel: {
+                            display: true,
+                            labelString: `${label2} / ${label3}`
+                        },
+                        ticks: {
+                            beginAtZero: true,
+                            callback: function (value) {
+                                return formatPercent(value); // Convert to percentage
                             }
                         }
                     }
-                },
-                {
-                    id: 'y1',
-                    position: 'right',
-                    gridLines: {
-                        display: false
-                    },
-                    scaleLabel: {
-                        display: true,
-                        labelString: `${label3} / / ${label2}`
-                    },
-                    ticks: {
-                        beginAtZero: true,
-                        callback: function(value) {
-                            value = value * 100
-                            return formatPercent(value); // Convert to percentage
+                ]
+            },
+            tooltips: {
+                callbacks: {
+                    label: function (tooltipItem, data) {
+                        let datasetLabel = data.datasets[tooltipItem.datasetIndex].label || '';
+                        let value = tooltipItem.yLabel;
+                        
+                        // Determine which label is being hovered over to format correctly
+                        if (datasetLabel === label1) {
+                            return datasetLabel + ': $' + value.toFixed(2).toLocaleString();
+                        } else if (datasetLabel === label2 || datasetLabel === label3) {
+                            return datasetLabel + ': ' + formatPercent(value);
                         }
                     }
-                }]
+                }
             }
         }
     });
@@ -152,12 +172,12 @@ function replaceNullWithZero(data) {
 
 // Function to format percentages
 function formatPercent(value) {
-    return value + '%';
+    return value.toFixed(2) + '%';
 }
 
 // Apply filter on button click
 document.getElementById('applyFilter').addEventListener('click', function () {
-    const selectedIndustries = Array.from(document.getElementById('industryFilter').selectedOptions).map(option => option.value);
+    const selectedIndustries = Array.from(document.querySelectorAll('#industryFilter input[type="checkbox"]:checked')).map(checkbox => checkbox.value);
 
     const {filteredIndustry, filteredPeRatio, filteredProfitMargins, filteredDivYield} = filterDataByIndustry(selectedIndustries, peAvg);
 
@@ -168,7 +188,7 @@ document.getElementById('applyFilter').addEventListener('click', function () {
 
     // Create a new chart with the filtered data
     const ctx2 = document.getElementById('industryChart').getContext('2d');
-    peChart = barLineChart(filteredIndustry, 'PE Ratio', 'Profit Margin', 'Dividend Yield', filteredPeRatio, filteredProfitMargins, filteredDivYield, ctx2, 'industryChart');
+    peChart = barLineChart(filteredIndustry, 'PE Ratio', 'Profit Margin', 'Div Yield', filteredPeRatio, filteredProfitMargins, filteredDivYield, ctx2, 'industryChart');
 });
 
 // Initialize the chart when the DOM is loaded

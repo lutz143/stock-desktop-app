@@ -44,12 +44,18 @@
                 Industry Metrics
                 <span><a href="./ice-curve" target="_blank" style="text-decoration: none;">&#129482;</a></span>
             </h3>
-            <select id="industryFilter" multiple>
-                <!-- Industry options will be dynamically populated -->
-            </select>
-            <button id="applyFilter">Apply Filter</button>
-            <canvas id="industryChart"></canvas>
-            <!-- Bell Curve being loaded from bellCurve.js -->
+            <div class="container">
+                <div class="row">
+                    <canvas id="industryChart"></canvas>
+                    <div class="form-group">
+                        <label>Select Industries:</label>
+                        <div id="industryFilter" class="d-flex flex-column">
+                            <!-- Switches will be dynamically populated here -->
+                        </div>
+                        <button id="applyFilter" class="btn btn-primary mt-3">Apply Filter</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     
