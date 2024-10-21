@@ -4,6 +4,7 @@ const websiteId = document.getElementById("website");
 const industryId = document.getElementById("industry");
 const sectorId = document.getElementById("sector");
 const profitMarginId = document.getElementById("profit-margin");
+const sharesOutstandingId = document.getElementById("shares-outstanding");
 const peRatioId = document.getElementById("pe-ratio");
 const reportFcfId = document.getElementById("reported-fcf");
 const busSummaryId = document.getElementById("business-summary");
@@ -55,6 +56,7 @@ function updateguid() {
             sectorId.value = item.sector;
             profitMarginId.value = `${formatDecimalNumber(item.profitMargins*100, 2)}%`;
             peRatioId.value = formatDecimalNumber(item.trailingPE, 1);
+            sharesOutstandingId.value = formatWholeNumber(item.sharesOutstanding)
             reportFcfId.value = `$${formatDecimalNumber(item.freeCashflow, 0)}`;
             busSummaryId.value = item.longBusinessSummary;
         }
