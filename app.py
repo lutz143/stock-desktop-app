@@ -32,17 +32,17 @@ def get_db_connection():
 def index():
     connection = get_db_connection()
     cursor = connection.cursor(dictionary=True)
-    # query the server for avg pe ratio by industry
+    # query the server for avg pe ratio by sector
     query = '''
-        SELECT industry, AVG(trailingPE) as peRatio, AVG(profitMargins) as profitMargin, AVG(dividendYield) as divYield
+        SELECT sector, AVG(trailingPE) as peRatio, AVG(profitMargins) as profitMargin, AVG(dividendYield) as divYield
         FROM MetaData
-        GROUP BY industry
-        ORDER BY industry
+        GROUP BY sector
+        ORDER BY sector
     '''
     cursor.execute(query)
-    avg_pe_industry = cursor.fetchall()
+    avg_pe_sector = cursor.fetchall()
 
-    return render_template('index.html', avg_pe_industry=avg_pe_industry)
+    return render_template('index.html', avg_pe_sector=avg_pe_sector)
 
 @app.route('/sub-page')
 def subPage():

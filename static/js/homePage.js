@@ -12,7 +12,7 @@ function peIndustryChart() {
     // Assuming peAvg is your data source, this needs to be defined elsewhere
     peAvg.forEach((item) => {
         industryChartCard.style.display = "flex";
-        industry.push(item.industry);
+        industry.push(item.sector);
         peRatio.push(item.peRatio);
         profitMargins.push(item.profitMargin * 100);
         divYield.push(item.divYield * 100);
@@ -59,8 +59,8 @@ function filterDataByIndustry(selectedIndustries, peAvg) {
     let filteredDivYield = [];
 
     peAvg.forEach(item => {
-        if (selectedIndustries.includes(item.industry)) {
-            filteredIndustry.push(item.industry);
+        if (selectedIndustries.includes(item.sector)) {
+            filteredIndustry.push(item.sector);
             filteredPeRatio.push(item.peRatio);
             filteredProfitMargins.push(item.profitMargin * 100);
             filteredDivYield.push(item.divYield * 100);

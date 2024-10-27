@@ -70,6 +70,7 @@
     transition: width 0.3s ease;
 }
 
+
 /* Hover effects */
 .landing-header nav ul li a:hover {
     color: var(--white-font);
@@ -83,24 +84,49 @@
 
 /* Body Styling */
 .landing-body {
-    text-align: center;
-    background-color: var(--white);
+    background-color: var(--light-gray);
     min-height: 100vh;
 }
 
+/* Chart & Filter Styling */
+#industry-chart {
+    width: max-content;
+    align-items: center;
+    margin-top: 20px;
+}
+
+#filterGroup {
+    max-width: 100%;
+}
+
+.filter-label {
+    display: grid;
+    position: relative;
+    justify-content: center;
+    top: -10px;
+    font-weight: 600;
+}
+
+.chart-container {
+    overflow-x: auto; /* Enables horizontal scrolling */
+    width: 800px; /* Ensures it stays within the card */
+}
+
 #industryChart {
-    max-width: 900px;
+    width: 100%; /* Set to desired fixed width */
+    height: 300px;
 }
 
 #industryFilter {
-    max-height: 200px; /* Set the maximum height */
-    max-width: fit-content;
-    overflow-y: auto;  /* Enable vertical scroll when content exceeds max height */
-    padding-right: 15px; /* Add some padding for better look */
-    align-items:flex-start;
+    max-height: 300px; /* Adjust as needed */
+    max-width: max-content;
+    overflow-y: auto;
+    padding-right: 15px;
+    align-items: flex-start;
 }
 
 
+/* Nav Links Styling */
 .nav-links {
     font-family: 'Orbitron', Arial, sans-serif;
     font-size: 38px;
@@ -146,7 +172,7 @@
     display: flex;
     padding: 10px 10px 10px 15px;
     height: 100%;
-    width: 150%;
+    max-width: 510px;
     z-index: 100;
 }
 
